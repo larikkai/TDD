@@ -2,6 +2,6 @@
 
 TDD Exercise repository
 
-| Name   | Time   | Done   |
-| ------ | :----: | :-----: |
-| Exercise1 | xxx | [ ]|
+| Name   | Time   | Done   | TCR   |
+| ------ | :----: | :-----: | :----:|
+| Exercise1 | 6 | x | x |
