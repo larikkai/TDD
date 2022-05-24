@@ -18,7 +18,7 @@ export class Board {
 
   tick() {
     this.undraw();
-    this.updateBlockPosition();
+    this.updateFallingBlockPosition();
     this.draw();
   }
 
@@ -28,26 +28,31 @@ export class Board {
   }
 
   draw() {
-    for(let i = 0; i < this.fallingBlock.length; i++) {
+    for(let i = 0; i < this.fallingBlock[0].length; i++) {
       this.board[this.fallingBlock[0][i]] = this.fallingBlock[1];
     }
   }
 
   undraw() {
-    for(let i = 0; i < this.fallingBlock.length; i++) {
+    for(let i = 0; i < this.fallingBlock[0].length; i++) {
       this.board[this.fallingBlock[0][i]] = ".";
     }
   }
 
-  updateBlockPosition() {
-    for(let i = 0; i < this.fallingBlock.length; i++) {
-      const updatedPosition = this.fallingBlock[0][i] + this.width;
-      if(updatedPosition >= this.board.length) {
+  updateFallingBlockPosition() {
+    for(let i = 0; i < this.fallingBlock[0].length; i++) {
+      const newPosition = this.fallingBlock[0][i] + this.width;
+      if(this.outOfBoard(newPosition)) {
         this.fallingBlock[2] = false;
         return;
       }
       this.fallingBlock[0][i] += this.width;
     }
+  }
+
+  outOfBoard(position) {
+    if(position >= this.board.length) return true;
+    return false;
   }
 
   toString() {
