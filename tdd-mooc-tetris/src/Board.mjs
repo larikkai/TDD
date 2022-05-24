@@ -43,12 +43,23 @@ export class Board {
   updateFallingBlockPosition() {
     for(let i = 0; i < this.fallingBlock[0].length; i++) {
       const newPosition = this.fallingBlock[0][i] + this.width;
-      if(this.outOfBoard(newPosition)) {
+      if(this.notValidMove(newPosition)) {
         this.fallingBlock[2] = false;
         return;
       }
       this.fallingBlock[0][i] += this.width;
     }
+  }
+
+  notValidMove(position) {
+    if(this.outOfBoard(position)) return true;
+    if(this.positionTaken(position)) return true;
+    return false;
+  }
+
+  positionTaken(position) {
+    if(this.board[position] != ".") return true;
+    return false;
   }
 
   outOfBoard(position) {
