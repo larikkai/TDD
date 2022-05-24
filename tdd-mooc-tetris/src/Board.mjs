@@ -20,10 +20,11 @@ export class Board {
     this.undraw();
     this.updateFallingBlockPosition();
     this.draw();
+    this.clean();
   }
 
   hasFalling() {
-    if(this.fallingBlock[2]) return true;
+    if(this.fallingBlock) return true;
     return false;
   }
 
@@ -53,6 +54,10 @@ export class Board {
   outOfBoard(position) {
     if(position >= this.board.length) return true;
     return false;
+  }
+
+  clean() {
+    if(!this.fallingBlock[2]) this.fallingBlock = null;
   }
 
   toString() {
