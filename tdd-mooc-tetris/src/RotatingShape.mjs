@@ -23,9 +23,7 @@ export class RotatingShape {
   rotateRight() {
     const dest = [...this.shape];
     const temp = [...this.shape];
-    const size = this.width;
-    if(size === 3) this.rotate(temp, dest, this.rotateTable3);
-    if(size === 5) this.rotate(temp, dest, this.rotateTable5);
+    this.rotate(temp, dest);
     return this.toString(dest);
   }
 
@@ -33,13 +31,13 @@ export class RotatingShape {
     const dest = [...this.shape];
     for(let i = 0; i < 3; i++) {
       let temp = [...dest];
-      if(this.width === 3) this.rotate(temp, dest, this.rotateTable3);
-      if(this.width === 5) this.rotate(temp, dest, this.rotateTable5);
+      this.rotate(temp, dest);
     }
     return this.toString(dest);
   }
 
-  rotate(src, dest, table) {
+  rotate(src, dest) {
+    const table = this.width === 3 ? this.rotateTable3 : this.rotateTable5;
     for(let i = 0; i < this.shape.length; i++) {
       const nextPos = table[i];
       const letter = src[i];
