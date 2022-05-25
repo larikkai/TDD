@@ -1,21 +1,19 @@
 export class RotatingShape {
-  width;
   shape;
 
-  constructor(shapeString) {
-    if(typeof shapeString === "string") {
-      this.width = shapeString.indexOf("\n");
-      let string = shapeString.replace(/\s+/g, "");
-      this.shape = string.split("");
+  constructor(shape) {
+    if(typeof shape === "string") {
+      this.shape = shape
+        .replace(/\s+/g, "")
+        .split("");
     } else {
-      this.width = Math.sqrt(shapeString.length);
-      this.shape = shapeString;
+      this.shape = shape;
     }
   }
 
   rotateRight() {
     const dest = new Array(9);
-    const n = this.width;
+    const n = Math.sqrt(this.shape.length);
     for(let i = 0; i < n; i++) {
       for(let j = 0; j < n; j++) {
         dest[((i*n+j)%n)*n+n-1-i] = this.shape[i*n+j];
@@ -29,7 +27,7 @@ export class RotatingShape {
   }
 
   toString() {
-    const n = this.width;
+    const n = Math.sqrt(this.shape.length);
     let print = "";
     for(let i = 0; i < n; i++) {
       for(let j = 0; j < n; j++) {
