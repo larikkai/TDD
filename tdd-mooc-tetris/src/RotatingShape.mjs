@@ -1,18 +1,31 @@
 export class RotatingShape {
   width;
   shape;
-  rotateTable;
+  rotateTable3;
+  rotateTable5;
 
   constructor(shapeString) {
     this.width = shapeString.indexOf("\n");
     let string = shapeString.replace(/\s+/g, "");
     this.shape = string.split("");
-    this.rotateTable = [2, 5, 8, 1, 4, 7, 0, 3, 6];
+    this.rotateTable3 = [
+      2, 5, 8,
+      1, 4, 7,
+      0, 3, 6];
+    this.rotateTable5 = [
+      4, 9, 14, 19, 24,
+      3, 8, 13, 18, 23,
+      2, 7, 12, 17, 22,
+      1, 6, 11, 16, 21,
+      0, 5, 10, 15, 20];
   }
 
   rotateRight() {
     const dest = [...this.shape];
-    this.rotate(this.shape, dest);
+    const temp = [...this.shape];
+    const size = this.width;
+    if(size === 3) this.rotate(temp, dest, this.rotateTable3);
+    if(size === 5) this.rotate(temp, dest, this.rotateTable5);
     return this.toString(dest);
   }
 
@@ -20,14 +33,15 @@ export class RotatingShape {
     const dest = [...this.shape];
     for(let i = 0; i < 3; i++) {
       let temp = [...dest];
-      this.rotate(temp, dest);
+      if(this.width === 3) this.rotate(temp, dest, this.rotateTable3);
+      if(this.width === 5) this.rotate(temp, dest, this.rotateTable5);
     }
     return this.toString(dest);
   }
 
-  rotate(src, dest) {
-    for(let i = 0; i < this.rotateTable.length; i++) {
-      const nextPos = this.rotateTable[i];
+  rotate(src, dest, table) {
+    for(let i = 0; i < this.shape.length; i++) {
+      const nextPos = table[i];
       const letter = src[i];
       dest[nextPos] = letter;
     }
@@ -35,10 +49,11 @@ export class RotatingShape {
 
   toString(source) {
     const arr = source ?? this.shape;
+    const n = this.width;
     let print = "";
-    for(let i = 0; i < this.width; i++) {
-      for(let j = 0; j < this.width; j++) {
-        print += arr[i*3+j];
+    for(let i = 0; i < n; i++) {
+      for(let j = 0; j < n; j++) {
+        print += arr[i*n+j];
       }
       print += "\n";
     }
