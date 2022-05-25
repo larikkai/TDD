@@ -2,27 +2,27 @@ export class RotatingShape {
   width;
   shape;
   rotateTable;
-  visited;
 
   constructor(shapeString) {
     this.width = shapeString.indexOf("\n");
     let string = shapeString.replace(/\s+/g, "");
     this.shape = string.split("");
-    this.visited = new Array(string.length);
     this.rotateTable = [2, 5, 8, 1, 4, 7, 0, 3, 6];
   }
 
   rotateRight() {
-    this.rotate(this.shape, this.visited);
-    return this.toString(this.visited);
+    const dest = [...this.shape];
+    this.rotate(this.shape, dest);
+    return this.toString(dest);
   }
 
   rotateLeft() {
-    this.shape = [...this.visited];
-    this.rotate(this.shape, this.visited);
-    this.shape = [...this.visited];
-    this.rotate(this.shape, this.visited);
-    return this.toString(this.visited);
+    const dest = [...this.shape];
+    for(let i = 0; i < 3; i++) {
+      let temp = [...dest];
+      this.rotate(temp, dest);
+    }
+    return this.toString(dest);
   }
 
   rotate(src, dest) {
