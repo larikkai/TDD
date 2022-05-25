@@ -12,14 +12,17 @@ export class RotatingShape {
   }
 
   rotateRight() {
-    const dest = new Array(9);
-    const n = Math.sqrt(this.shape.length);
-    for(let i = 0; i < n; i++) {
-      for(let j = 0; j < n; j++) {
-        dest[((i*n+j)%n)*n+n-1-i] = this.shape[i*n+j];
+    const rotated = new Array(9);
+    const width = Math.sqrt(this.shape.length);
+    for(let i = 0; i < width; i++) {
+      for(let j = 0; j < width; j++) {
+        const row = ((i*width+j)%width)*width;
+        const column = width-1-i;
+        const pos = i*width+j;
+        rotated[row+column] = this.shape[pos];
       }
     }
-    return new RotatingShape(dest);
+    return new RotatingShape(rotated);
   }
 
   rotateLeft() {
@@ -27,11 +30,11 @@ export class RotatingShape {
   }
 
   toString() {
-    const n = Math.sqrt(this.shape.length);
+    const width = Math.sqrt(this.shape.length);
     let print = "";
-    for(let i = 0; i < n; i++) {
-      for(let j = 0; j < n; j++) {
-        print += this.shape[i*n+j];
+    for(let i = 0; i < width; i++) {
+      for(let j = 0; j < width; j++) {
+        print += this.shape[i*width+j];
       }
       print += "\n";
     }
