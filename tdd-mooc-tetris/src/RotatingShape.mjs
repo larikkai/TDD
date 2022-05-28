@@ -1,28 +1,23 @@
 export class RotatingShape {
-  shape;
+  #shape;
 
   constructor(shape) {
     if(typeof shape === "string") {
       this.shape = shape
-        .replace(/\s+/g, "")
-        .split("");
+        .replaceAll(" ", "")
+        .split("\n")
+        .map(s => s.split(""));
     } else {
       this.shape = shape;
     }
   }
 
   rotateRight() {
-    const rotated = new Array(9);
-    const width = Math.sqrt(this.shape.length);
-    for(let i = 0; i < width; i++) {
-      for(let j = 0; j < width; j++) {
-        const row = ((i*width+j)%width)*width;
-        const column = width-1-i;
-        const pos = i*width+j;
-        rotated[row+column] = this.shape[pos];
-      }
-    }
-    return new RotatingShape(rotated);
+    const width = this.shape.length;
+    const parsed = JSON.parse(JSON.stringify(this.shape));
+    return new RotatingShape(parsed
+      .map((rows, row) => rows
+      .map((columns, col) => this.shape[width - 1 - col][row])));
   }
 
   rotateLeft() {
@@ -30,14 +25,6 @@ export class RotatingShape {
   }
 
   toString() {
-    const width = Math.sqrt(this.shape.length);
-    let print = "";
-    for(let i = 0; i < width; i++) {
-      for(let j = 0; j < width; j++) {
-        print += this.shape[i*width+j];
-      }
-      print += "\n";
-    }
-    return print;
+    return this.shape.map(arr => arr.join("")).join("\n") + "\n";
   }
 }
