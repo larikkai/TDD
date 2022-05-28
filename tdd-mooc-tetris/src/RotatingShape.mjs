@@ -3,21 +3,22 @@ export class RotatingShape {
 
   constructor(shape) {
     if(typeof shape === "string") {
-      this.shape = shape
+      this.#shape = shape
         .replaceAll(" ", "")
+        .trim()
         .split("\n")
         .map(s => s.split(""));
     } else {
-      this.shape = shape;
+      this.#shape = shape;
     }
   }
 
   rotateRight() {
-    const width = this.shape.length;
-    const parsed = JSON.parse(JSON.stringify(this.shape));
+    const width = this.#shape.length;
+    const parsed = JSON.parse(JSON.stringify(this.#shape));
     return new RotatingShape(parsed
       .map((rows, row) => rows
-      .map((columns, col) => this.shape[width - 1 - col][row])));
+      .map((columns, col) => this.#shape[width - 1 - col][row])));
   }
 
   rotateLeft() {
@@ -25,6 +26,6 @@ export class RotatingShape {
   }
 
   toString() {
-    return this.shape.map(arr => arr.join("")).join("\n") + "\n";
+    return this.#shape.map(arr => arr.join("")).join("\n") + "\n";
   }
-}
+};
