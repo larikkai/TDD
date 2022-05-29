@@ -2,21 +2,11 @@ import {RotatingShape} from "../src/RotatingShape.mjs";
 
 export class Tetromino {
 
-  static T_SHAPE = {
-    toString: function() {
-      return [
-      [".", "T", "."],
-      ["T", "T", "T"],
-      [".", ".", "."]
-      ].map(row => row.join("")).join("\n") + "\n";
-    },
-    rotateRight: function() {
-      return new RotatingShape(this.toString()).rotateRight();
-    },
-    rotateLeft: function() {
-      return new RotatingShape(this.toString()).rotateLeft();
-    }
-  };
+  static T_SHAPE = new Tetromino([
+    ".T.\nTTT\n...",
+    ".T.\n.TT\n.T.",
+    "...\nTTT\n.T.",
+    ".T.\nTT.\n.T.",], 0);
 
   static I_SHAPE = new Tetromino([
     ".....\n.....\nIIII.\n.....\n.....",
