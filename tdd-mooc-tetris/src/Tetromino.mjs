@@ -12,6 +12,9 @@ export class Tetromino {
     ".....\n.....\nIIII.\n.....\n.....",
     "..I..\n..I..\n..I..\n..I..\n....."], 0);
 
+  static O_SHAPE = new Tetromino([
+    ".OO\n.OO\n..."], 0);
+
   #shape;
   #shapes;
   #rotation;
