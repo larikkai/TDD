@@ -25,14 +25,14 @@ export class Tetromino {
   };
 
   rotateRight() {
-    let nextRotation = this.#rotation + 1;
-    if(nextRotation === this.#rotations.length) nextRotation = 0;
+    const [next, max] = [this.#rotation + 1, this.#rotations.length];
+    const nextRotation = next === max ? 0 : next;
     return new Tetromino(null, nextRotation, this.#rotations);
   };
 
   rotateLeft() {
-    let nextRotation = this.#rotation - 1;
-    if(nextRotation < 0) nextRotation = this.#rotations.length - 1;
+    const [next, max] = [this.#rotation - 1, this.#rotations.length - 1];
+    const nextRotation = next < 0 ? max : next;
     return new Tetromino(null, nextRotation, this.#rotations);
   };
 
