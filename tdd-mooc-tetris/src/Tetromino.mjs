@@ -37,16 +37,13 @@ export class Tetromino {
   };
 
   getRotations(shape, shapes) {
-    if(shape) {
-      const newShape = new RotatingShape(shape);
-      return [
-        newShape,
-        newShape.rotateRight(),
-        newShape.rotateRight().rotateRight(),
-        newShape.rotateRight().rotateRight().rotateRight()
-        ].slice(0, shapes);
-    } else {
-      return shapes;
-    };
+    if(shape === null) return shapes;
+    const newShape = new RotatingShape(shape);
+    return [
+      newShape,
+      newShape.rotateRight(),
+      newShape.rotateRight().rotateRight(),
+      newShape.rotateRight().rotateRight().rotateRight()
+      ].slice(0, shapes);
   };
 };
