@@ -17,17 +17,7 @@ export class Tetromino {
   constructor(...args) {
     const [shape, rotation, shapes] = args
     this.#rotation = rotation;
-    if(shape) {
-      const newShape = new RotatingShape(shape);
-      this.#shapes = [
-        newShape,
-        newShape.rotateRight(),
-        newShape.rotateRight().rotateRight(),
-        newShape.rotateRight().rotateRight().rotateRight()
-        ].slice(0, shapes);
-    } else {
-      this.#shapes = shapes;
-    };
+    this.#shapes = this.getRotations(shape, shapes);
   };
 
   toString() {
@@ -44,5 +34,19 @@ export class Tetromino {
     let nextRotation = this.#rotation - 1;
     if(nextRotation < 0) nextRotation = this.#shapes.length - 1;
     return new Tetromino(null, nextRotation, this.#shapes);
+  };
+
+  getRotations(shape, shapes) {
+    if(shape) {
+      const newShape = new RotatingShape(shape);
+      return [
+        newShape,
+        newShape.rotateRight(),
+        newShape.rotateRight().rotateRight(),
+        newShape.rotateRight().rotateRight().rotateRight()
+        ].slice(0, shapes);
+    } else {
+      return shapes;
+    };
   };
 };
