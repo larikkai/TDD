@@ -1,43 +1,48 @@
-import {RotatingShape} from "../src/RotatingShape.mjs";
+import { RotatingShape } from "../src/RotatingShape.mjs";
 
 export class Tetromino {
 
-  static T_SHAPE = new Tetromino([
-    ".T.\nTTT\n...",
-    ".T.\n.TT\n.T.",
-    "...\nTTT\n.T.",
-    ".T.\nTT.\n.T.",], 0);
+  static T_SHAPE = new Tetromino(
+    ".T.\nTTT\n...", 0, 4);
 
-  static I_SHAPE = new Tetromino([
-    ".....\n.....\nIIII.\n.....\n.....",
-    "..I..\n..I..\n..I..\n..I..\n....."], 0);
+  static I_SHAPE = new Tetromino(
+    ".....\n.....\nIIII.\n.....\n.....", 0, 2);
 
-  static O_SHAPE = new Tetromino([
-    ".OO\n.OO\n..."], 0);
+  static O_SHAPE = new Tetromino(
+    ".OO\n.OO\n...", 0, 1);
 
-  #shape;
   #shapes;
   #rotation;
 
   constructor(...args) {
-    this.#rotation = args[1];
-    this.#shape = args[0][this.#rotation];
-    this.#shapes = args[0];
+    const [shape, rotation, shapes] = args
+    this.#rotation = rotation;
+    if(shape) {
+      const newShape = new RotatingShape(shape);
+      this.#shapes = [
+        newShape,
+        newShape.rotateRight(),
+        newShape.rotateRight().rotateRight(),
+        newShape.rotateRight().rotateRight().rotateRight()
+        ].slice(0, shapes);
+    } else {
+      this.#shapes = shapes;
+    };
   };
 
   toString() {
-     return this.#shape.toString() + "\n";
+    return this.#shapes[this.#rotation].toString();
   };
 
   rotateRight() {
     let nextRotation = this.#rotation + 1;
     if(nextRotation === this.#shapes.length) nextRotation = 0;
-    return new Tetromino(this.#shapes, nextRotation);
+    return new Tetromino(null, nextRotation, this.#shapes);
   };
 
   rotateLeft() {
     let nextRotation = this.#rotation - 1;
     if(nextRotation < 0) nextRotation = this.#shapes.length - 1;
-    return new Tetromino(this.#shapes, nextRotation);
+    return new Tetromino(null, nextRotation, this.#shapes);
   };
 };
