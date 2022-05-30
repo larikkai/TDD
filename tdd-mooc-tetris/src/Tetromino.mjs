@@ -11,39 +11,39 @@ export class Tetromino {
   static O_SHAPE = new Tetromino(
     ".OO\n.OO\n...", 0, 1);
 
-  #shapes;
+  #rotations;
   #rotation;
 
   constructor(...args) {
-    const [shape, rotation, shapes] = args
+    const [shape, rotation, rotations] = args
     this.#rotation = rotation;
-    this.#shapes = this.getRotations(shape, shapes);
+    this.#rotations = this.getRotations(shape, rotations);
   };
 
   toString() {
-    return this.#shapes[this.#rotation].toString();
+    return this.#rotations[this.#rotation].toString();
   };
 
   rotateRight() {
     let nextRotation = this.#rotation + 1;
-    if(nextRotation === this.#shapes.length) nextRotation = 0;
-    return new Tetromino(null, nextRotation, this.#shapes);
+    if(nextRotation === this.#rotations.length) nextRotation = 0;
+    return new Tetromino(null, nextRotation, this.#rotations);
   };
 
   rotateLeft() {
     let nextRotation = this.#rotation - 1;
-    if(nextRotation < 0) nextRotation = this.#shapes.length - 1;
-    return new Tetromino(null, nextRotation, this.#shapes);
+    if(nextRotation < 0) nextRotation = this.#rotations.length - 1;
+    return new Tetromino(null, nextRotation, this.#rotations);
   };
 
-  getRotations(shape, shapes) {
-    if(shape === null) return shapes;
-    const newShape = new RotatingShape(shape);
+  getRotations(shape, rotations) {
+    if(shape === null) return rotations;
+    const newRotation = new RotatingShape(shape);
     return [
-      newShape,
-      newShape.rotateRight(),
-      newShape.rotateRight().rotateRight(),
-      newShape.rotateRight().rotateRight().rotateRight()
-      ].slice(0, shapes);
+      newRotation,
+      newRotation.rotateRight(),
+      newRotation.rotateRight().rotateRight(),
+      newRotation.rotateRight().rotateRight().rotateRight()
+      ].slice(0, rotations);
   };
 };
