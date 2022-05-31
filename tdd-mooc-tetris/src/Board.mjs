@@ -1,64 +1,68 @@
+import { Block } from "./Block.mjs";
+
 export class Board {
   width;
   height;
   board;
   fallingBlock;
+  currentPosition;
+  coordinates;
 
-  constructor(width, height) {
-    this.width = width;
-    this.height = height;
-    this.board = new Array(width*height).fill(".");
+  constructor(...args) {
+    [this.width, this.height] = args;
+    this.board = new Array(this.width*this.height).fill(false);
   }
 	
   drop(block) {
     if(this.fallingBlock) throw "already falling";
-    this.fallingBlock = [[1], block.color, true];
+    this.currentPosition = Math.floor((this.width - 1)/2);
+    this.fallingBlock = block;
     this.draw();
   }
 
   tick() {
-    this.undraw();
     this.updateFallingBlockPosition();
+    if(!this.fallingBlock) return;
+    this.undraw();
     this.draw();
-    this.clean();
   }
 
   hasFalling() {
-    if(this.fallingBlock) return true;
-    return false;
+    return this.fallingBlock ? true : false;
   }
 
   draw() {
-    for(let i = 0; i < this.fallingBlock[0].length; i++) {
-      this.board[this.fallingBlock[0][i]] = this.fallingBlock[1];
-    }
-  }
+    this.updateCoordinates();
+    this.coordinates.forEach(value => {
+      this.board[value] = this.fallingBlock.getColor();
+    });
+  };
 
   undraw() {
-    for(let i = 0; i < this.fallingBlock[0].length; i++) {
-      this.board[this.fallingBlock[0][i]] = ".";
-    }
-  }
+    this.coordinates.forEach(value => { 
+      this.board[value] = false;
+    });
+  };
+
+  updateCoordinates() {
+    this.coordinates = this.fallingBlock.getCoordinates()
+      .map((row, r) => row
+      .map((column, c) => r*this.width+this.currentPosition+column))
+      .flat();
+  };
 
   updateFallingBlockPosition() {
-    for(let i = 0; i < this.fallingBlock[0].length; i++) {
-      const newPosition = this.fallingBlock[0][i] + this.width;
-      if(this.notValidMove(newPosition)) {
-        this.fallingBlock[2] = false;
-        return;
-      }
-      this.fallingBlock[0][i] += this.width;
+    const newPosition = this.currentPosition + this.width;
+    if(this.notValidPosition(newPosition)) {
+      this.fallingBlock = null;
+      return;
     }
+    this.currentPosition += this.width;
   }
 
-  notValidMove(position) {
+  notValidPosition(position) {
     if(this.outOfBoard(position)) return true;
-    if(this.positionTaken(position)) return true;
-    return false;
-  }
-
-  positionTaken(position) {
-    if(this.board[position] != ".") return true;
+    if(this.taken(position)) return true;
     return false;
   }
 
@@ -67,15 +71,17 @@ export class Board {
     return false;
   }
 
-  clean() {
-    if(!this.fallingBlock[2]) this.fallingBlock = null;
-  }
+  taken(position) {
+    return this.board[position];
+  };
 
   toString() {
     let print = "";
     for(let i = 0; i < this.height; i++) {
       for(let j = 0; j < this.width; j++) {
-        print += this.board[i*this.height+j];
+        const taken = this.board[i*this.width+j];
+        if(!taken) print += ".";
+        else print += taken;
       }
       print += "\n";
     }
