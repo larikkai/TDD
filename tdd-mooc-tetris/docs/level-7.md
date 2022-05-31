@@ -19,12 +19,12 @@ than one test is broken at a time.
 
 Some possible refactoring strategies:
 
-* Use [test doubles](https://tdd.mooc.fi/3-challenges#test-doubles) instead of the official tetrominoes. For example the
+- Use [test doubles](https://tdd.mooc.fi/3-challenges#test-doubles) instead of the official tetrominoes. For example the
   original [FallingBlocks.test.mjs](../test/FallingBlocks.test.mjs) does this and thus avoids being coupled to the
   rotation system.
-* Use the [parallel change](https://tdd.mooc.fi/2-design#four-strategies) refactoring strategy and keep both the old and
+- Use the [parallel change](https://tdd.mooc.fi/2-design#four-strategies) refactoring strategy and keep both the old and
   new classes side by side. Migrate the tests to use the new classes one test at a time.
-* If there are tests which do a complex sequence of moving and rotating tetrominoes just to set up the board state in
+- If there are tests which do a complex sequence of moving and rotating tetrominoes just to set up the board state in
   the beginning of a test, instead create operations which let you easily set the board's state. Who knows, maybe
   they'll be useful also in production code (e.g. to implement save states).
 
