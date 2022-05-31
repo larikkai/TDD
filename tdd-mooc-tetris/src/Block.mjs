@@ -1,7 +1,15 @@
 export class Block {
-  color;
+  #color;
 
-  constructor(color) {
-    this.color = color;
-  }
-}
+  constructor(...args) {
+    [this.#color] = args;
+  };
+
+  getColor() {
+    return this.#color;
+  };
+
+  getCoordinates() {
+    return [[0]];
+  };
+};
