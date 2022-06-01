@@ -68,39 +68,10 @@ export class Board {
       .flat();
   }
 
-  updateFallingBlockPosition() {
-    const newPos = this.currentPosition + this.width;
-    if (
-      !this.coordinates.some((value) => this.notValidPosition(newPos - value))
-    ) {
-      this.fallingBlock = null;
-      return;
-    }
-    this.currentPosition += this.width;
-  }
-
-  notValidPosition(position) {
-    if (this.outOfBoard(position)) return true;
-    if (this.taken(position)) return true;
-    return false;
-  }
-
-  outOfBoard(position) {
-    if (position >= this.board.length) return true;
-    return false;
-  }
-
-  taken(position) {
-    return this.board[position] && !this.coordinates.includes(position);
-  }
-
   toString() {
     let print = "";
     for (let i = 0; i < this.height; i++) {
       for (let j = 0; j < this.width; j++) {
-        /*const taken = this.board[i * this.width + j];
-        if (!taken) print += ".";
-        else print += taken;*/
         print += this.board[i * this.width + j].getColor();
       }
       print += "\n";
