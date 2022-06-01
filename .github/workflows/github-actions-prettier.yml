@@ -31,5 +31,6 @@ jobs:
         uses: actions/setup-node@v1
       - name: Test Tetris
         run: |
-          npm install --prefix tdd-mooc-tetris/
-          npm run test --prefix tdd-mooc-tetris/
+          npm install
+          npm run test
+        working-directory: tdd-mooc-tetris
