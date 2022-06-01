@@ -20,3 +20,6 @@ jobs:
         uses: creyD/prettier_action@v4.2
         with:
           prettier_options: --write **/*.{js,md}
+
+      - name: Test Tetris
+        run: npm run test --prefix tdd-mooc-tetris/
