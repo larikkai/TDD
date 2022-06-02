@@ -20,6 +20,6 @@ export class Block {
   }
 
   getCoordinates() {
-    return [[0]];
+    return [[], [0]];
   }
 }

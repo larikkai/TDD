@@ -22,7 +22,7 @@ export class Board {
 
   tick() {
     this.validate(1, 0);
-    if (this.fallingBlock === null) return;
+    if (!this.fallingBlock) return;
     this.execute(new Block("."), "draw");
     this.currentRow++;
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
@@ -43,8 +43,15 @@ export class Board {
 
   rotate(option) {
     if (!this.fallingBlock) return;
-    if (option === "left") this.fallingBlock.rotateLeft();
-    if (option === "right") this.fallingBlock.rotateRight();
+    if (option === "left") this.rotateLeft();
+    if (option === "right") this.rotateRight();
+  }
+  
+  rotateLeft() {
+    this.execute(new Block("."), "draw");
+    this.fallingBlock = this.fallingBlock.rotateLeft();
+    this.coordinates = this.fallingBlock.getCoordinates();
+    this.execute(new Block(this.fallingBlock.getColor()), "draw");
   }
 
   execute(block, option) {
@@ -77,15 +84,11 @@ export class Board {
   }
 
   createBoard(w, h) {
-    return Array.from(
-      Array(h + 1),
-      () =>
-        new Array(w + 2)
-          .fill(new Block("#", true), 0, 1)
-          .fill(new Block("."), 1, w + 1)
-          .fill(new Block("#", true), w + 1),
-      w + 2
-    ).fill(new Array(w + 2).fill(new Block("#", true)), h);
+    return [...Array(h + 2)].map(x => Array(w + 2)
+            .fill(new Block("#", true), 0, 1)
+            .fill(new Block("."), 1, w + 1)
+            .fill(new Block("#", true), w + 1))
+          .fill(new Array(w + 2).fill(new Block("#", true)), h + 1);
   }
 
   toString() {
@@ -97,7 +100,7 @@ export class Board {
             .slice(1, -1)
             .join("")
         )
-        .slice(0, -1)
+        .slice(1, -1)
         .join("\n") + "\n"
     );
   }

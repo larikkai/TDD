@@ -54,7 +54,7 @@ export class Tetromino {
             return;
           })
           .filter((column) => column !== undefined)
-      )
-      .filter((arr) => arr.length !== 0);
+      );
+     // .filter((arr) => arr.length !== 0);
   }
 }
