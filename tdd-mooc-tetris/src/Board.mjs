@@ -1,25 +1,24 @@
 import { Block } from "./Block.mjs";
 
 export class Board {
-  width;
-  height;
   board;
   fallingBlock;
-  currentPosition;
+  currentRow;
+  currentCol;
   coordinates;
 
   constructor(...args) {
-    [this.width, this.height] = args;
-    this.board = new Array((this.width + 1) * this.height)
-      .fill(new Block("."))
-      .fill(new Block("#", true), this.width * this.height);
+    this.board = Array.from(Array(args[1] + 1), () => new Array(args[0])
+        .fill(new Block(".")))
+        .fill(new Array(args[0]).fill(new Block("#", true)), args[1]);
   }
 
   drop(block) {
     if (this.fallingBlock) throw "already falling";
-    this.currentPosition = Math.floor((this.width - 1) / 2);
+    this.currentCol = Math.floor((this.board[0].length - 1) / 2);
+    this.currentRow = 0;
     this.fallingBlock = block;
-    this.updateCoordinates();
+    this.coordinates = block.getCoordinates();
     this.draw();
   }
 
@@ -27,7 +26,7 @@ export class Board {
     this.validate();
     if (this.fallingBlock === null) return;
     this.undraw();
-    this.currentPosition += this.width;
+    this.currentRow++;
     this.draw();
   }
 
@@ -36,46 +35,45 @@ export class Board {
   }
 
   draw() {
-    this.coordinates.forEach((value) => {
-      this.board[this.currentPosition + value] = new Block(
-        this.fallingBlock.getColor()
-      );
-    });
+    this.coordinates.forEach((r, ri) => r.forEach((c) => {
+      const row = this.currentRow;
+      const col = this.currentCol;
+      const color = this.fallingBlock.getColor();
+      this.board[row + ri][col + c] = new Block(color);
+    }));
   }
 
   undraw() {
-    this.coordinates.forEach((value) => {
-      this.board[this.currentPosition + value] = new Block(".");
-    });
+    this.coordinates.forEach((r, ri) => r.forEach((c) => {
+      const row = this.currentRow;
+      const col = this.currentCol;
+      this.board[row + ri][col + c] = new Block(".");
+    }));
   }
 
   validate() {
-    const newPos = this.currentPosition + this.width;
-    if (
-      this.coordinates.some((value) => this.board[newPos + value].isTaken())
-    ) {
-      this.coordinates.forEach((value) =>
-        this.board[this.currentPosition + value].setTaken()
-      );
+    if (this.isTaken()) {
+      this.coordinates.forEach((r, ri) => r.forEach((c) => {
+        const row = this.currentRow;
+        const col = this.currentCol;
+        this.board[row + ri][col + c].setTaken();
+      }));
       this.fallingBlock = null;
     }
   }
 
-  updateCoordinates() {
-    this.coordinates = this.fallingBlock
-      .getCoordinates()
-      .map((row, r) => row.map((column, c) => r * this.width + column))
-      .flat();
+  isTaken() {
+    return this.coordinates.some((r, ri) => r.some((c) => {
+      const row = this.currentRow + 1;
+      const col = this.currentCol;
+      return this.board[row + ri][col + c].isTaken();
+    }));
   }
 
   toString() {
-    let print = "";
-    for (let i = 0; i < this.height; i++) {
-      for (let j = 0; j < this.width; j++) {
-        print += this.board[i * this.width + j].getColor();
-      }
-      print += "\n";
-    }
-    return print;
+    return this.board
+      .map((row) => row.map((col) => col.getColor())
+      .join("")).slice(0,-1)
+      .join("\n") + "\n";
   }
 }
