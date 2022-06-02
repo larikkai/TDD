@@ -19,25 +19,28 @@ describe("The T shape", () => {
 
   it("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
-      `.T.
-       TTT
-       ...`
+      `....
+       TTT.
+       .T..
+       ....`
     );
   });
 
   it("can be rotated right/clockwise", () => {
     expect(shape.rotateRight().toString()).to.equalShape(
-      `.T.
-       .TT
-       .T.`
+      `.T..
+       TT..
+       .T..
+       ....`
     );
   });
 
   it("can be rotated left/counter-clockwise", () => {
     expect(shape.rotateLeft().toString()).to.equalShape(
-      `.T.
-       TT.
-       .T.`
+      `.T..
+       .TT.
+       .T..
+       ....`
     );
   });
 
@@ -51,31 +54,28 @@ describe("The I shape", () => {
 
   it("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
-      `.....
-       .....
-       IIII.
-       .....
-       .....`
+      `....
+       IIII
+       ....
+       ....`
     );
   });
 
   it("can be rotated right/clockwise", () => {
     expect(shape.rotateRight().toString()).to.equalShape(
-      `..I..
-       ..I..
-       ..I..
-       ..I..
-       .....`
+      `..I.
+       ..I.
+       ..I.
+       ..I.`
     );
   });
 
   it("can be rotated left/counter-clockwise", () => {
     expect(shape.rotateLeft().toString()).to.equalShape(
-      `..I..
-       ..I..
-       ..I..
-       ..I..
-       .....`
+      `..I.
+       ..I.
+       ..I.
+       ..I.`
     );
   });
 
@@ -89,25 +89,28 @@ describe("The O shape", () => {
 
   it("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
-      `.OO
-       .OO
-       ...`
+      `....
+       .OO.
+       .OO.
+       ....`
     );
   });
 
   it("cannot be rotated right/clockwise", () => {
     expect(shape.rotateRight().toString()).to.equalShape(
-      `.OO
-       .OO
-       ...`
+      `....
+       .OO.
+       .OO.
+       ....`
     );
   });
 
   it("cannot be rotated left/counter-clockwise", () => {
     expect(shape.rotateLeft().toString()).to.equalShape(
-      `.OO
-       .OO
-       ...`
+      `....
+       .OO.
+       .OO.
+       ....`
     );
   });
 
