@@ -7,17 +7,8 @@ export class Board {
   fallingBlock;
   coordinates;
 
-  constructor(...args) {
-    this.board = Array.from(Array(args[1] + 1), () =>
-      new Array(args[0] + 2).fill(new Block("."))
-    )
-      .fill(new Array(args[0] + 2).fill(new Block("#", true)), args[1])
-      .map((row, ri) =>
-        row.map((col, ci) => {
-          if (ci === 0 || ci === args[0] + 1) return new Block("#", true);
-          return col;
-        })
-      );
+  constructor(width, height) {
+    this.board = this.createBoard(width, height);
   }
 
   drop(block) {
@@ -80,6 +71,18 @@ export class Board {
         return this.board[row + ri][col + c].isTaken();
       })
     );
+  }
+
+  createBoard(w, h) {
+    return Array.from(
+      Array(h + 1),
+      () =>
+        new Array(w + 2)
+          .fill(new Block("#", true), 0, 1)
+          .fill(new Block("."), 1, w + 1)
+          .fill(new Block("#", true), w + 1),
+      w + 2
+    ).fill(new Array(w + 2).fill(new Block("#", true)), h);
   }
 
   toString() {
