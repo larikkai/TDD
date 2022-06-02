@@ -34,11 +34,17 @@ export class Board {
 
   move(row, col) {
     this.validate(row, col);
-    if (this.fallingBlock === null) return;
+    if (!this.fallingBlock) return;
     this.execute(new Block("."), "draw");
     this.currentRow += row;
     this.currentCol += col;
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
+  }
+
+  rotate(option) {
+    if (!this.fallingBlock) return;
+    if (option === "left") this.fallingBlock.rotateLeft();
+    if (option === "right") this.fallingBlock.rotateRight();
   }
 
   execute(block, option) {
@@ -53,10 +59,7 @@ export class Board {
   }
 
   validate(row, col) {
-    if (this.isTaken(null, col)) {
-      this.currentCol += -col;
-      return;
-    }
+    if (this.isTaken(null, col)) return this.currentCol += -col;
     if (this.isTaken(row, null)) {
       this.execute(null, "setTaken");
       this.fallingBlock = null;
