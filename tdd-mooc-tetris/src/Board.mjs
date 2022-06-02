@@ -19,35 +19,26 @@ export class Board {
     this.currentRow = 0;
     this.fallingBlock = block;
     this.coordinates = block.getCoordinates();
-    this.draw();
+    this.draw(new Block(this.fallingBlock.getColor()));
   }
 
   tick() {
     this.validate();
     if (this.fallingBlock === null) return;
-    this.undraw();
+    this.draw(new Block("."));
     this.currentRow++;
-    this.draw();
+    this.draw(new Block(this.fallingBlock.getColor()));
   }
 
   hasFalling() {
     return this.fallingBlock ? true : false;
   }
 
-  draw() {
+  draw(block) {
     this.coordinates.forEach((r, ri) => r.forEach((c) => {
       const row = this.currentRow;
       const col = this.currentCol;
-      const color = this.fallingBlock.getColor();
-      this.board[row + ri][col + c] = new Block(color);
-    }));
-  }
-
-  undraw() {
-    this.coordinates.forEach((r, ri) => r.forEach((c) => {
-      const row = this.currentRow;
-      const col = this.currentCol;
-      this.board[row + ri][col + c] = new Block(".");
+      this.board[row + ri][col + c] = block;
     }));
   }
 
