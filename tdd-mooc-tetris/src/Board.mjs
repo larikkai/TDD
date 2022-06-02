@@ -41,13 +41,13 @@ export class Board {
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
   }
 
-  execute(...args) {
+  execute(block, option) {
     this.coordinates.forEach((r, ri) =>
       r.forEach((c) => {
         const row = this.currentRow + ri;
         const col = this.currentCol + c;
-        if (args[1] === "draw") this.board[row][col] = args[0];
-        if (args[1] === "setTaken") this.board[row][col].setTaken();
+        if (option === "draw") this.board[row][col] = block;
+        if (option === "setTaken") this.board[row][col].setTaken();
       })
     );
   }
