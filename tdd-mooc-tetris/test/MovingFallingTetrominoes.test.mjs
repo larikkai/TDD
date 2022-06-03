@@ -117,16 +117,9 @@ describe("Move falling tetrominoes", () => {
        ..........`
     );
   });
-});
-
-describe("Move falling tetrominoes", () => {
-  let board;
-  beforeEach(() => {
-    board = new Board(10, 6);
-  });
-
+  
   it("Still able to move the block - bottom", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(Tet.T_SHAPE);
     move(board, 4, 1, 0);
 
     expect(board.toString()).to.equalShape(
@@ -142,7 +135,7 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Cannot move beyond the board - bottom", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(Tet.T_SHAPE);
     move(board, 5, 1, 0);
 
     expect(board.toString()).to.equalShape(
@@ -154,6 +147,13 @@ describe("Move falling tetrominoes", () => {
        ....T.....`
     );
     expect(board.hasFalling(), "The block should stop moving").to.be.false;
+  });
+});
+
+describe("Move falling tetrominoes", () => {
+  let board;
+  beforeEach(() => {
+    board = new Board(10, 6);
   });
 
   it("Cannot move through other blocks - right", () => {
