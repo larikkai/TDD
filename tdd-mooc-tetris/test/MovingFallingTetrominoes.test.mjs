@@ -57,16 +57,9 @@ describe("Move falling tetrominoes", () => {
        ..........`
     );
   });
-});
-
-describe("Move falling tetrominoes", () => {
-  let board;
-  beforeEach(() => {
-    board = new Board(10, 6);
-  });
 
   it("Still able to move the block - left", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(Tet.T_SHAPE);
     move(board, 3, 0, -1);
 
     expect(board.toString()).to.equalShape(
@@ -79,6 +72,13 @@ describe("Move falling tetrominoes", () => {
     );
     expect(board.hasFalling(), "The player should be able to move the block").to
       .be.true;
+  });
+});
+
+describe("Move falling tetrominoes", () => {
+  let board;
+  beforeEach(() => {
+    board = new Board(10, 6);
   });
 
   it("Cannot move beyond the board - left", () => {
