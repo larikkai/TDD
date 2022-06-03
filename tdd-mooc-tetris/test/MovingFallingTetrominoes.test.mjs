@@ -29,30 +29,9 @@ describe("Move falling tetrominoes", () => {
        ..........`
     );
   });
-});
-
-describe("Move falling tetrominoes", () => {
-  let board;
-  beforeEach(() => {
-    board = new Board(10, 6);
-  });
-
-  it("Can move left one block", () => {
-    board.drop(Tetromino.T_SHAPE);
-    move(board, 1, 0, -1);
-
-    expect(board.toString()).to.equalShape(
-      `..TTT.....
-       ...T......
-       ..........
-       ..........
-       ..........
-       ..........`
-    );
-  });
 
   it("Can move right one block", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(Tet.T_SHAPE);
     move(board, 1, 0, 1);
 
     expect(board.toString()).to.equalShape(
@@ -63,6 +42,14 @@ describe("Move falling tetrominoes", () => {
        ..........
        ..........`
     );
+  });
+
+});
+
+describe("Move falling tetrominoes", () => {
+  let board;
+  beforeEach(() => {
+    board = new Board(10, 6);
   });
 
   it("Can move down one row", () => {
