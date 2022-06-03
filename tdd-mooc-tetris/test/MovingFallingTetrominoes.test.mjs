@@ -1,12 +1,35 @@
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
+import { B } from "../src/Board2.mjs";
+import { Tet } from "../src/Tetromino2.mjs";
 
 function move(...args) {
   for (let i = 0; i < args[1]; i++) {
     args[0].move(args[2], args[3]);
   }
 }
+
+describe("Move falling tetrominoes", () => {
+  let board;
+  beforeEach(() => {
+    board = new B(10, 6);
+  });
+
+  it("Can move left one block", () => {
+    board.drop(Tet.T_SHAPE);
+    move(board, 1, 0, -1);
+
+    expect(board.toString()).to.equalShape(
+      `..TTT.....
+       ...T......
+       ..........
+       ..........
+       ..........
+       ..........`
+    );
+  });
+});
 
 describe("Move falling tetrominoes", () => {
   let board;
