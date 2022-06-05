@@ -1,11 +1,11 @@
 import { expect } from "chai";
-import { Board } from "../src/Board.mjs";
+import { B } from "../src/Board2.mjs";
 import { Block } from "../src/Block.mjs";
 
 describe("Falling blocks", () => {
   let board;
   beforeEach(() => {
-    board = new Board(3, 3);
+    board = new B(3, 3);
   });
 
   it("The board starts empty", () => {
@@ -18,7 +18,7 @@ describe("Falling blocks", () => {
 
   describe("When a block is dropped", () => {
     beforeEach(() => {
-      board.drop(new Block("X"));
+      board.drop(new Block("X"), 0);
     });
 
     it("it starts from the top middle", () => {
@@ -49,7 +49,7 @@ describe("Falling blocks", () => {
 
   describe("When a block reaches the bottom", () => {
     beforeEach(() => {
-      board.drop(new Block("X"));
+      board.drop(new Block("X"),0);
       board.tick();
       board.tick();
     });
@@ -80,11 +80,11 @@ describe("Falling blocks", () => {
 
   describe("When a block lands on another block", () => {
     beforeEach(() => {
-      board.drop(new Block("X"));
+      board.drop(new Block("X"),0);
       board.tick();
       board.tick();
       board.tick();
-      board.drop(new Block("Y"));
+      board.drop(new Block("Y"),0);
       board.tick();
     });
 
