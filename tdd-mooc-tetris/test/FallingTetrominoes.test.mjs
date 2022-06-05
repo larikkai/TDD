@@ -1,7 +1,5 @@
 import { expect } from "chai";
-import { Board } from "../src/Board.mjs";
 import { B } from "../src/Board2.mjs";
-import { Tetromino } from "../src/Tetromino.mjs";
 import { Tet } from "../src/Tetromino2.mjs";
 
 function fallToBottom(board) {
@@ -9,28 +7,6 @@ function fallToBottom(board) {
     board.tick();
   }
 }
-
-describe("new tetro", () => {
-    it("o_shape2", () => {
-        const shape = Tet.O_SHAPE;
-        
-        expect(shape.toString()).to.equalShape(
-          `.OO.
-           .OO.
-           ....`
-        );
-      });
-
-    it("i_shape2", () => {
-        const shape = Tet.I_SHAPE;
-        
-        expect(shape.toString()).to.equalShape(
-          `IIII
-           ....
-           ....`
-        );
-    });
-  });
 
 describe("Falling tetrominoes", () => {
   let board;

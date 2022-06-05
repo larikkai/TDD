@@ -1,6 +1,4 @@
 import { expect } from "chai";
-import { Board } from "../src/Board.mjs";
-import { Tetromino } from "../src/Tetromino.mjs";
 import { B } from "../src/Board2.mjs";
 import { Tet } from "../src/Tetromino2.mjs";
 
