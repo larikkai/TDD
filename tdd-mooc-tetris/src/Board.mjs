@@ -1,6 +1,6 @@
 import { Block } from "./Block.mjs";
 
-export class B {
+export class Board {
   board;
   currentRow;
   currentCol;

@@ -1,10 +1,10 @@
-import { B } from "./Board2.mjs";
+import { Board } from "./Board.mjs";
 import { Shapes } from "./Shapes.mjs";
 
-export class Tet {
-  static I_SHAPE = new Tet(Shapes.I_SHAPE);
-  static T_SHAPE = new Tet(Shapes.T_SHAPE);
-  static O_SHAPE = new Tet(Shapes.O_SHAPE);
+export class Tetromino {
+  static I_SHAPE = new Tetromino(Shapes.I_SHAPE);
+  static T_SHAPE = new Tetromino(Shapes.T_SHAPE);
+  static O_SHAPE = new Tetromino(Shapes.O_SHAPE);
 
   #rotations;
   #rotation;
@@ -15,7 +15,7 @@ export class Tet {
   }
 
   toString() {
-    const board = new B(4, 4);
+    const board = new Board(4, 4);
     board.drop(this, 0);
     return board.toString();
   }
@@ -23,13 +23,13 @@ export class Tet {
   rotateRight() {
     const [next, max] = [this.#rotation + 1, this.#rotations.length];
     const nextRotation = next === max ? 0 : next;
-    return new Tet([this.#rotations, nextRotation, this.#color]);
+    return new Tetromino([this.#rotations, nextRotation, this.#color]);
   }
 
   rotateLeft() {
     const [next, max] = [this.#rotation - 1, this.#rotations.length - 1];
     const nextRotation = next < 0 ? max : next;
-    return new Tet([this.#rotations, nextRotation, this.#color]);
+    return new Tetromino([this.#rotations, nextRotation, this.#color]);
   }
 
   getColor() {
