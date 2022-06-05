@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Tet } from "../src/Tetromino2.mjs";
+import { Tetromino } from "../src/Tetromino.mjs";
 
 function distinctOrientations(shape) {
   const distinct = new Set();
@@ -15,7 +15,7 @@ function distinctOrientations(shape) {
 }
 
 describe("The O shape", () => {
-  const shape = Tet.O_SHAPE;
+  const shape = Tetromino.O_SHAPE;
 
   it("initial orientation", () => {
     expect(shape.toString()).to.equalShape(

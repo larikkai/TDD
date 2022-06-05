@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { B } from "../src/Board2.mjs";
-import { Tet } from "../src/Tetromino2.mjs";
+import { Board } from "../src/Board.mjs";
+import { Tetromino } from "../src/Tetromino.mjs";
 
 function move(...args) {
   for (let i = 0; i < args[1]; i++) {
@@ -11,11 +11,11 @@ function move(...args) {
 describe("Move falling tetrominoes", () => {
   let board;
   beforeEach(() => {
-    board = new B(10, 6);
+    board = new Board(10, 6);
   });
 
   it("Can move left one block", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 1, 0, -1);
 
     expect(board.toString()).to.equalShape(
@@ -29,7 +29,7 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Can move right one block", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 1, 0, 1);
 
     expect(board.toString()).to.equalShape(
@@ -43,7 +43,7 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Can move down one row", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 1, 1, 0);
 
     expect(board.toString()).to.equalShape(
@@ -57,7 +57,7 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Still able to move the block - left", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 3, 0, -1);
 
     expect(board.toString()).to.equalShape(
@@ -73,7 +73,7 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Cannot move beyond the board - left", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 4, 0, -1);
 
     expect(board.toString()).to.equalShape(
@@ -87,7 +87,7 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Still able to move the block - rigth", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 4, 0, 1);
 
     expect(board.toString()).to.equalShape(
@@ -103,7 +103,7 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Cannot move beyond the board - rigth", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 5, 0, 1);
 
     expect(board.toString()).to.equalShape(
@@ -117,7 +117,7 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Still able to move the block - bottom", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 4, 1, 0);
 
     expect(board.toString()).to.equalShape(
@@ -133,7 +133,7 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Cannot move beyond the board - bottom", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 5, 1, 0);
 
     expect(board.toString()).to.equalShape(
@@ -148,13 +148,13 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Cannot move through other blocks - right", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 5, 0, 1);
     move(board, 5, 1, 0);
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 5, 0, 1);
     move(board, 5, 1, 0);
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 3, 1, 0);
     move(board, 2, 0, 1);
     move(board, 1, 1, 0);
@@ -171,13 +171,13 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Still able to move the block - right", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 5, 0, 1);
     move(board, 5, 1, 0);
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 5, 0, 1);
     move(board, 5, 1, 0);
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 3, 1, 0);
     move(board, 2, 0, 1);
 
@@ -194,13 +194,13 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Still able to move the block - left", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 4, 0, -1);
     move(board, 5, 1, 0);
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 4, 0, -1);
     move(board, 5, 1, 0);
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 3, 1, 0);
     move(board, 1, 0, -1);
     move(board, 1, 1, 0);
@@ -217,13 +217,13 @@ describe("Move falling tetrominoes", () => {
   });
 
   it("Cannot move through other blocks - left", () => {
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 4, 0, -1);
     move(board, 5, 1, 0);
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 4, 0, -1);
     move(board, 5, 1, 0);
-    board.drop(Tet.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     move(board, 3, 1, 0);
     move(board, 2, 0, -1);
 
