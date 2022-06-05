@@ -13,10 +13,8 @@ export class B {
 
   drop(block) {
     if (this.fallingBlock) throw "already falling";
-    this.currentCol = Math.floor((this.board[0].length - 1) / 2);
-    this.currentRow = 1;
-    this.fallingBlock = block;
-    this.coordinates = block.getCoordinates();
+    this.initFallingBlock(block);
+    this.initRowCol();
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
   }
 
@@ -80,11 +78,20 @@ export class B {
   }
 
   createBoard(w, h) {
-    return [...Array(h + 2)].map(x => Array(w + 2)
+    return [...Array(h + 1)].map(x => Array(w + 2)
             .fill(new Block("#", true), 0, 1)
             .fill(new Block("."), 1, w + 1)
             .fill(new Block("#", true), w + 1))
-          .fill(new Array(w + 2).fill(new Block("#", true)), h + 1);
+          .fill(new Array(w + 2).fill(new Block("#", true)), h);
+  }
+
+  initFallingBlock(block) {
+    [this.fallingBlock, this.coordinates] = [block, block.getCoordinates()];
+  }
+
+  initRowCol() {
+    const col = (this.board[0].length - this.coordinates.length) / 2;
+    [this.currentRow, this.currentCol] = [-1, Math.floor(col)];
   }
 
   toString() {
@@ -96,7 +103,7 @@ export class B {
             .slice(1, -1)
             .join("")
         )
-        .slice(1, -1)
+        .slice(0, -1)
         .join("\n") + "\n"
     );
   }

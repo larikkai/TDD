@@ -1,12 +1,14 @@
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
+import { B } from "../src/Board2.mjs";
+import { Tet } from "../src/Tetromino2.mjs";
 
 describe("Move falling tetrominoes", () => {
   let board;
   beforeEach(() => {
-    board = new Board(10, 6);
-    board.drop(Tetromino.T_SHAPE);
+    board = new B(10, 6);
+    board.drop(Tet.T_SHAPE);
     board.tick();
     board.tick();
   });
@@ -46,7 +48,7 @@ describe("Move falling tetrominoes", () => {
     board.tick();
     board.tick();
     board.tick();
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(Tet.T_SHAPE);
     board.tick();
     board.rotate("left");
 
