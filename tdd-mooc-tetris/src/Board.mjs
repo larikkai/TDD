@@ -46,17 +46,38 @@ export class Board {
   }
 
   rotateLeft() {
+    const newBlock = this.fallingBlock.rotateLeft();
+    const newCoordinates = newBlock.getCoordinates();
+    const row = this.currentRow;
+    const col = this.currentCol;
     this.execute(new Block("."), "draw");
-    this.fallingBlock = this.fallingBlock.rotateLeft();
-    this.coordinates = this.fallingBlock.getCoordinates();
+    if(this.valid(newCoordinates, row, col)) {
+      this.fallingBlock = newBlock;
+      this.coordinates = newCoordinates; 
+    }
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
   }
 
   rotateRight() {
+    const newBlock = this.fallingBlock.rotateRight();
+    const newCoordinates = newBlock.getCoordinates();
+    const row = this.currentRow;
+    const col = this.currentCol;
     this.execute(new Block("."), "draw");
-    this.fallingBlock = this.fallingBlock.rotateRight();
-    this.coordinates = this.fallingBlock.getCoordinates();
+    if(this.valid(newCoordinates, row, col)) {
+      this.fallingBlock = newBlock;
+      this.coordinates = newCoordinates; 
+    }
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
+    console.log(this.toString());
+  }
+
+  valid(coordinates, r, c) {
+    return !coordinates.some((value) => {
+      const row = r + Math.floor(value / 4);
+      const col = c + (value % 4);
+      return this.board[row][col].isTaken();
+    });
   }
 
   execute(block, option) {
@@ -78,7 +99,7 @@ export class Board {
 
   isTaken(ro, co) {
     return this.coordinates.some((value) => {
-      const row = this.currentRow + Math.floor(Math.abs(value / 4)) + ro ?? 0;
+      const row = this.currentRow + Math.floor(value / 4) + ro ?? 0;
       const col = this.currentCol + (value % 4) + co ?? 0;
       return this.board[row][col].isTaken();
     });
