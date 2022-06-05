@@ -41,12 +41,9 @@ export class Board {
 
   rotate(option) {
     if (!this.fallingBlock) return;
-    if (option === "left") this.rotateLeft();
-    if (option === "right") this.rotateRight();
-  }
-
-  rotateLeft() {
-    const newBlock = this.fallingBlock.rotateLeft();
+    let newBlock;
+    if (option === "left") newBlock = this.fallingBlock.rotateLeft();
+    if (option === "right") newBlock = this.fallingBlock.rotateRight();
     const newCoordinates = newBlock.getCoordinates();
     const row = this.currentRow;
     const col = this.currentCol;
@@ -56,20 +53,6 @@ export class Board {
       this.coordinates = newCoordinates; 
     }
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
-  }
-
-  rotateRight() {
-    const newBlock = this.fallingBlock.rotateRight();
-    const newCoordinates = newBlock.getCoordinates();
-    const row = this.currentRow;
-    const col = this.currentCol;
-    this.execute(new Block("."), "draw");
-    if(this.valid(newCoordinates, row, col)) {
-      this.fallingBlock = newBlock;
-      this.coordinates = newCoordinates; 
-    }
-    this.execute(new Block(this.fallingBlock.getColor()), "draw");
-    console.log(this.toString());
   }
 
   valid(coordinates, r, c) {
