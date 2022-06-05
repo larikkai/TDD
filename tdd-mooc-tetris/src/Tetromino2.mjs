@@ -16,8 +16,8 @@ export class Tet {
   }
 
   toString() {
-    const board = new B(4,3);
-    board.drop(this);
+    const board = new B(4,4);
+    board.drop(this,0);
     return board.toString();
   }
 

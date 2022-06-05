@@ -11,10 +11,10 @@ export class B {
     this.board = this.createBoard(width, height);
   }
 
-  drop(block) {
+  drop(block, row) {
     if (this.fallingBlock) throw "already falling";
     this.initFallingBlock(block);
-    this.initRowCol();
+    this.initRowCol(row);
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
   }
 
@@ -54,7 +54,7 @@ export class B {
 
   execute(block, option) {
     this.coordinates.forEach((value) => {
-        const row = this.currentRow + Math.floor(Math.abs(value / 4));
+        const row = this.currentRow + Math.floor(value / 4);
         const col = this.currentCol + value % 4;
         if (option === "draw") this.board[row][col] = block;
         if (option === "setTaken") this.board[row][col].setTaken();
@@ -89,9 +89,10 @@ export class B {
     [this.fallingBlock, this.coordinates] = [block, block.getCoordinates()];
   }
 
-  initRowCol() {
+  initRowCol(r) {
+    const row = r ?? -1;
     const col = (this.board[0].length - this.coordinates.length) / 2;
-    [this.currentRow, this.currentCol] = [-1, Math.floor(col)];
+    [this.currentRow, this.currentCol] = [row, Math.floor(col)];
   }
 
   toString() {
