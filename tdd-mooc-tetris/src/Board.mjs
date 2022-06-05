@@ -19,9 +19,8 @@ export class Board {
   }
 
   tick() {
-    this.validate(1, 0);
-    if (!this.fallingBlock) return;
-    this.execute(new Block("."), "draw");
+    if (!this.validate(1,0)) return;
+    this.execute(new Block("."), "undraw");
     this.currentRow++;
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
   }
@@ -30,24 +29,23 @@ export class Board {
     return this.fallingBlock ? true : false;
   }
 
-  move(row, col) {
-    this.validate(row, col);
-    if (!this.fallingBlock) return;
-    this.execute(new Block("."), "draw");
-    this.currentRow += row;
-    this.currentCol += col;
+  move(r, c) {
+    if(!this.validate(r,c)) return;
+    this.execute(new Block("."), "undraw");
+    this.currentRow += r;
+    this.currentCol += c;
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
   }
 
-  rotate(option) {
+  rotate(opt) {
     if (!this.fallingBlock) return;
     let newBlock;
-    if (option === "left") newBlock = this.fallingBlock.rotateLeft();
-    if (option === "right") newBlock = this.fallingBlock.rotateRight();
+    if (opt === "left") newBlock = this.fallingBlock.rotateLeft();
+    if (opt === "right") newBlock = this.fallingBlock.rotateRight();
     const newCoordinates = newBlock.getCoordinates();
     const row = this.currentRow;
     const col = this.currentCol;
-    this.execute(new Block("."), "draw");
+    this.execute(new Block("."), "undraw");
     if(this.valid(newCoordinates, row, col)) {
       this.fallingBlock = newBlock;
       this.coordinates = newCoordinates; 
@@ -63,29 +61,29 @@ export class Board {
     });
   }
 
-  execute(block, option) {
+  execute(block, opt) {
     this.coordinates.forEach((value) => {
       const row = this.currentRow + Math.floor(value / 4);
       const col = this.currentCol + (value % 4);
-      if (option === "draw") this.board[row][col] = block;
-      if (option === "setTaken") this.board[row][col].setTaken();
+      if (opt === "draw" || opt === "undraw") this.board[row][col] = block;
+      if (opt === "setTaken") this.board[row][col].setTaken();
     });
   }
 
-  validate(row, col) {
-    if (this.isTaken(null, col)) return (this.currentCol += -col);
-    if (this.isTaken(row, null)) {
+  validate(r, c) {
+    if(!this.fallingBlock) return false;
+    const coordinates = this.coordinates;
+    const row = this.currentRow;
+    const col = this.currentCol;
+    const freeze = !this.valid(coordinates, row + r, col);
+    const notValid = !this.valid(coordinates, row, col + c);
+    if(notValid) return;
+    if(freeze) {
       this.execute(null, "setTaken");
       this.fallingBlock = null;
+      return false;
     }
-  }
-
-  isTaken(ro, co) {
-    return this.coordinates.some((value) => {
-      const row = this.currentRow + Math.floor(value / 4) + ro ?? 0;
-      const col = this.currentCol + (value % 4) + co ?? 0;
-      return this.board[row][col].isTaken();
-    });
+    return true;
   }
 
   createBoard(w, h) {
