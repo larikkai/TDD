@@ -2,7 +2,6 @@ import { B } from "./Board2.mjs";
 import { Shapes } from "./Shapes.mjs";
 
 export class Tet {
-
   static I_SHAPE = new Tet(Shapes.I_SHAPE);
   static T_SHAPE = new Tet(Shapes.T_SHAPE);
   static O_SHAPE = new Tet(Shapes.O_SHAPE);
@@ -16,8 +15,8 @@ export class Tet {
   }
 
   toString() {
-    const board = new B(4,4);
-    board.drop(this,0);
+    const board = new B(4, 4);
+    board.drop(this, 0);
     return board.toString();
   }
 

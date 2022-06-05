@@ -115,7 +115,7 @@ describe("Move falling tetrominoes", () => {
        ..........`
     );
   });
-  
+
   it("Still able to move the block - bottom", () => {
     board.drop(Tet.T_SHAPE);
     move(board, 4, 1, 0);
@@ -216,7 +216,7 @@ describe("Move falling tetrominoes", () => {
     expect(board.hasFalling(), "The block should stop moving").to.be.false;
   });
 
- it("Cannot move through other blocks - left", () => {
+  it("Cannot move through other blocks - left", () => {
     board.drop(Tet.T_SHAPE);
     move(board, 4, 0, -1);
     move(board, 5, 1, 0);

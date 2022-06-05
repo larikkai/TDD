@@ -44,7 +44,7 @@ export class B {
     if (option === "left") this.rotateLeft();
     if (option === "right") this.rotateRight();
   }
-  
+
   rotateLeft() {
     this.execute(new Block("."), "draw");
     this.fallingBlock = this.fallingBlock.rotateLeft();
@@ -54,15 +54,15 @@ export class B {
 
   execute(block, option) {
     this.coordinates.forEach((value) => {
-        const row = this.currentRow + Math.floor(value / 4);
-        const col = this.currentCol + value % 4;
-        if (option === "draw") this.board[row][col] = block;
-        if (option === "setTaken") this.board[row][col].setTaken();
-      });
+      const row = this.currentRow + Math.floor(value / 4);
+      const col = this.currentCol + (value % 4);
+      if (option === "draw") this.board[row][col] = block;
+      if (option === "setTaken") this.board[row][col].setTaken();
+    });
   }
 
   validate(row, col) {
-    if (this.isTaken(null, col)) return this.currentCol += -col;
+    if (this.isTaken(null, col)) return (this.currentCol += -col);
     if (this.isTaken(row, null)) {
       this.execute(null, "setTaken");
       this.fallingBlock = null;
@@ -71,18 +71,21 @@ export class B {
 
   isTaken(ro, co) {
     return this.coordinates.some((value) => {
-        const row = this.currentRow + Math.floor(Math.abs(value / 4)) + ro ?? 0;
-        const col = this.currentCol + value % 4 + co ?? 0;
-        return this.board[row][col].isTaken();
+      const row = this.currentRow + Math.floor(Math.abs(value / 4)) + ro ?? 0;
+      const col = this.currentCol + (value % 4) + co ?? 0;
+      return this.board[row][col].isTaken();
     });
   }
 
   createBoard(w, h) {
-    return [...Array(h + 1)].map(x => Array(w + 2)
-            .fill(new Block("#", true), 0, 1)
-            .fill(new Block("."), 1, w + 1)
-            .fill(new Block("#", true), w + 1))
-          .fill(new Array(w + 2).fill(new Block("#", true)), h);
+    return [...Array(h + 1)]
+      .map((x) =>
+        Array(w + 2)
+          .fill(new Block("#", true), 0, 1)
+          .fill(new Block("."), 1, w + 1)
+          .fill(new Block("#", true), w + 1)
+      )
+      .fill(new Array(w + 2).fill(new Block("#", true)), h);
   }
 
   initFallingBlock(block) {

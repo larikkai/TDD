@@ -49,7 +49,7 @@ describe("Falling blocks", () => {
 
   describe("When a block reaches the bottom", () => {
     beforeEach(() => {
-      board.drop(new Block("X"),0);
+      board.drop(new Block("X"), 0);
       board.tick();
       board.tick();
     });
@@ -80,11 +80,11 @@ describe("Falling blocks", () => {
 
   describe("When a block lands on another block", () => {
     beforeEach(() => {
-      board.drop(new Block("X"),0);
+      board.drop(new Block("X"), 0);
       board.tick();
       board.tick();
       board.tick();
-      board.drop(new Block("Y"),0);
+      board.drop(new Block("Y"), 0);
       board.tick();
     });
 

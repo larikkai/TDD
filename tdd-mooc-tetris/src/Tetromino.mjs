@@ -1,18 +1,24 @@
 import { RotatingShape } from "../src/RotatingShape.mjs";
 
 export class Tetromino {
-  static T_SHAPE = new Tetromino([
-    "....\nTTT.\n.T..\n....",
-    ".T..\nTT..\n.T..\n....",
-    "....\n.T..\nTTT.\n....",
-    ".T..\n.TT.\n.T..\n...."], 0, "T");
+  static T_SHAPE = new Tetromino(
+    [
+      "....\nTTT.\n.T..\n....",
+      ".T..\nTT..\n.T..\n....",
+      "....\n.T..\nTTT.\n....",
+      ".T..\n.TT.\n.T..\n....",
+    ],
+    0,
+    "T"
+  );
 
-  static I_SHAPE = new Tetromino([
-    "....\nIIII\n....\n....",
-    "..I.\n..I.\n..I.\n..I."], 0, "I");
+  static I_SHAPE = new Tetromino(
+    ["....\nIIII\n....\n....", "..I.\n..I.\n..I.\n..I."],
+    0,
+    "I"
+  );
 
-  static O_SHAPE = new Tetromino([
-    "....\n.OO.\n.OO.\n...."], 0, "O");
+  static O_SHAPE = new Tetromino(["....\n.OO.\n.OO.\n...."], 0, "O");
 
   #rotations;
   #rotation;
@@ -55,6 +61,6 @@ export class Tetromino {
           })
           .filter((column) => column !== undefined)
       );
-     // .filter((arr) => arr.length !== 0);
+    // .filter((arr) => arr.length !== 0);
   }
 }

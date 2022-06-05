@@ -39,7 +39,8 @@ describe("Move falling tetrominoes", () => {
        ..........
        ..........`
     );
-    expect(board.hasFalling(), "Player can rotate falling tetromino").to.be.true;
+    expect(board.hasFalling(), "Player can rotate falling tetromino").to.be
+      .true;
   });
 
   it("Only falling block will rotate", () => {
@@ -58,6 +59,7 @@ describe("Move falling tetrominoes", () => {
        ...TTT....
        ....T.....`
     );
-    expect(board.hasFalling(), "Player can rotate falling tetromino").to.be.true;
+    expect(board.hasFalling(), "Player can rotate falling tetromino").to.be
+      .true;
   });
 });
