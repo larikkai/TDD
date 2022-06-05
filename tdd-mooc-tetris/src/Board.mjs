@@ -52,6 +52,13 @@ export class Board {
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
   }
 
+  rotateRight() {
+    this.execute(new Block("."), "draw");
+    this.fallingBlock = this.fallingBlock.rotateRight();
+    this.coordinates = this.fallingBlock.getCoordinates();
+    this.execute(new Block(this.fallingBlock.getColor()), "draw");
+  }
+
   execute(block, option) {
     this.coordinates.forEach((value) => {
       const row = this.currentRow + Math.floor(value / 4);

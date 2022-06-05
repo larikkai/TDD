@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
 
-describe("Move falling tetrominoes", () => {
+describe("Rotate falling t_shape tetromino", () => {
   let board;
   beforeEach(() => {
     board = new Board(10, 6);
@@ -28,13 +28,28 @@ describe("Move falling tetrominoes", () => {
     expect(board.hasFalling(), "No tetromino to rotate").to.be.false;
   });
 
-  it("Falling block can be rotated", () => {
+  it("Falling tetromino can be rotated left", () => {
     board.rotate("left");
 
     expect(board.toString()).to.equalShape(
       `..........
        ....T.....
        ....TT....
+       ....T.....
+       ..........
+       ..........`
+    );
+    expect(board.hasFalling(), "Player can rotate falling tetromino").to.be
+      .true;
+  });
+
+  it("Falling tetromino can be rotated right", () => {
+    board.rotate("right");
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ....T.....
+       ...TT.....
        ....T.....
        ..........
        ..........`
