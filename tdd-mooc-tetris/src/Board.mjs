@@ -39,21 +39,22 @@ export class Board {
 
   rotate(opt) {
     if (!this.fallingBlock) return;
-    let newBlock;
-    if (opt === "left") newBlock = this.fallingBlock.rotateLeft();
-    if (opt === "right") newBlock = this.fallingBlock.rotateRight();
-    const newCoordinates = newBlock.getCoordinates();
+    const newBlock = this.getRotatedBlock(opt);
+    const newCoord = newBlock.getCoordinates();
     const row = this.currentRow;
     const col = this.currentCol;
     this.execute(new Block("."), "undraw");
-    if(this.valid(newCoordinates, row, col)) {
+    if(this.valid(newCoord, row, col) || this.kick(newCoord, row, col)) {
       this.fallingBlock = newBlock;
-      this.coordinates = newCoordinates; 
-    } else if (this.kick(newCoordinates, row, col)) {
-      this.fallingBlock = newBlock;
-      this.coordinates = newCoordinates; 
+      this.coordinates = newCoord; 
     }
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
+  }
+  
+  getRotatedBlock(opt) {
+    if (opt === "left") return this.fallingBlock.rotateLeft();
+    if (opt === "right") return this.fallingBlock.rotateRight();
+    return this.fallingBlock;
   }
   
   kick(coordinates, r, c) {
