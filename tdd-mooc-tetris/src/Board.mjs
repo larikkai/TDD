@@ -49,8 +49,37 @@ export class Board {
     if(this.valid(newCoordinates, row, col)) {
       this.fallingBlock = newBlock;
       this.coordinates = newCoordinates; 
+    } else if (this.kick(newCoordinates, row, col)) {
+      this.fallingBlock = newBlock;
+      this.coordinates = newCoordinates; 
     }
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
+    console.log(this.toString());
+  }
+  
+  kick(coordinates, r, c) {
+    const width = this.board[0].length - 1;
+    const atWall = this.atWall(coordinates, r, c);
+    if(atWall && this.valid(coordinates, r, c + 1)) {
+      this.currentCol++;
+      return true;
+    }
+    if(atWall && this.valid(coordinates, r, c - 1)) {
+       this.currentCol--;
+       return true;
+    }
+    return false;
+  }
+
+  atWall(coordinates, r, c) {
+    return coordinates.some((value) => {
+      const row = r + Math.floor(value / 4);
+      const col = c + (value % 4);
+      const taken = this.board[row][col].isTaken();
+      const atWall = this.board[row][col].getColor() === "#";
+      if(atWall && taken) return true;
+      return false;
+    });
   }
 
   valid(coordinates, r, c) {
