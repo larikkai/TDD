@@ -26,7 +26,7 @@ describe("The L shape", () => {
     );
   });
 
-  xit("can be rotated right/clockwise", () => {
+  it("can be rotated right/clockwise", () => {
     expect(shape.rotateRight().toString()).to.equalShape(
       `LL..
        .L..
@@ -35,7 +35,7 @@ describe("The L shape", () => {
     );
   });
 
-  xit("can be rotated left/counter-clockwise", () => {
+  it("can be rotated left/counter-clockwise", () => {
     expect(shape.rotateLeft().toString()).to.equalShape(
       `.L..
        .L..
@@ -44,7 +44,7 @@ describe("The L shape", () => {
     );
   });
 
-  xit("can be rotated twice left/counter-clockwise", () => {
+  it("can be rotated twice left/counter-clockwise", () => {
     expect(shape.rotateLeft().rotateLeft().toString()).to.equalShape(
       `....
        ..L.
@@ -53,7 +53,7 @@ describe("The L shape", () => {
     );
   });
 
-  xit("has 4 distinct orientations", () => {
+  it("has 4 distinct orientations", () => {
     expect(distinctOrientations(shape).size).to.equal(4);
   });
 });
