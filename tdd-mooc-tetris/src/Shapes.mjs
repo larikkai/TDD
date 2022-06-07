@@ -53,4 +53,13 @@ export class Shapes {
     0,
     "J",
   ];
+
+  static S_SHAPE = [
+    [
+      [5, 6, 8, 9],
+      [0, 4, 5, 9],
+    ],
+    0,
+    "S",
+  ];
 }

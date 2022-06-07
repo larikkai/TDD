@@ -7,6 +7,7 @@ export class Tetromino {
   static O_SHAPE = new Tetromino(Shapes.O_SHAPE);
   static L_SHAPE = new Tetromino(Shapes.L_SHAPE);
   static J_SHAPE = new Tetromino(Shapes.J_SHAPE);
+  static S_SHAPE = new Tetromino(Shapes.S_SHAPE);
 
   #rotations;
   #rotation;
