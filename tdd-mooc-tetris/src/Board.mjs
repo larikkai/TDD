@@ -69,7 +69,7 @@ export class Board {
       const row = r + Math.floor(value / 4);
       const col = c + (value % 4);
       const taken = this.board[row][col].isTaken();
-      const atWall = this.board[row][col].getColor() === "#";
+      const atWall = this.board[row][col].isWall();
       if(atWall && taken) return true;
       return false;
     });
