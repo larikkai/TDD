@@ -31,8 +31,8 @@ export class Shapes {
     0,
     "O",
   ];
-  
-  static L_SHAPE =[
+
+  static L_SHAPE = [
     [
       [4, 5, 6, 8],
       [0, 1, 5, 9],
@@ -40,6 +40,17 @@ export class Shapes {
       [1, 5, 9, 10],
     ],
     0,
-    "L"
-    ,];
+    "L",
+  ];
+
+  static J_SHAPE = [
+    [
+      [4, 5, 6, 10],
+      [1, 5, 8, 9],
+      [4, 8, 9, 10],
+      [1, 2, 5, 9],
+    ],
+    0,
+    "J",
+  ];
 }
