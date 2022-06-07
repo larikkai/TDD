@@ -71,8 +71,7 @@ export class Board {
       const col = c + (value % 4);
       const taken = this.board[row][col].isTaken();
       const atWall = this.board[row][col].isWall();
-      if (atWall && taken) return true;
-      return false;
+      return (atWall && taken) ? true : false;
     });
   }
 
