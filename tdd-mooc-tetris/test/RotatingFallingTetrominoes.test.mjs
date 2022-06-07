@@ -3,13 +3,13 @@ import { Board } from "../src/Board.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
 
 function tick(board, n) {
-  for(let i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++) {
     board.tick();
   }
 }
 
 function rotate(board, n, direction) {
-  for(let i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++) {
     board.rotate(direction);
   }
 }

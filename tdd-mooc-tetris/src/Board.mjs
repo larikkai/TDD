@@ -19,7 +19,7 @@ export class Board {
   }
 
   tick() {
-    if (!this.validate(1,0)) return;
+    if (!this.validate(1, 0)) return;
     this.execute(new Block("."), "undraw");
     this.currentRow++;
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
@@ -30,7 +30,7 @@ export class Board {
   }
 
   move(r, c) {
-    if(!this.validate(r,c)) return;
+    if (!this.validate(r, c)) return;
     this.execute(new Block("."), "undraw");
     this.currentRow += r;
     this.currentCol += c;
@@ -44,24 +44,24 @@ export class Board {
     const row = this.currentRow;
     const col = this.currentCol;
     this.execute(new Block("."), "undraw");
-    if(this.valid(newCoord, row, col) || this.kick(newCoord, row, col)) {
+    if (this.valid(newCoord, row, col) || this.kick(newCoord, row, col)) {
       this.fallingBlock = newBlock;
-      this.coordinates = newCoord; 
+      this.coordinates = newCoord;
     }
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
   }
-  
+
   getRotatedBlock(opt) {
     if (opt === "left") return this.fallingBlock.rotateLeft();
     if (opt === "right") return this.fallingBlock.rotateRight();
     return this.fallingBlock;
   }
-  
+
   kick(coordinates, r, c) {
     const atWall = this.atWall(coordinates, r, c);
-    if(!atWall) return false;
-    if(this.valid(coordinates, r, c + 1)) this.currentCol++;
-    if(this.valid(coordinates, r, c - 1)) this.currentCol--;
+    if (!atWall) return false;
+    if (this.valid(coordinates, r, c + 1)) this.currentCol++;
+    if (this.valid(coordinates, r, c - 1)) this.currentCol--;
     return true;
   }
 
@@ -71,7 +71,7 @@ export class Board {
       const col = c + (value % 4);
       const taken = this.board[row][col].isTaken();
       const atWall = this.board[row][col].isWall();
-      if(atWall && taken) return true;
+      if (atWall && taken) return true;
       return false;
     });
   }
@@ -94,19 +94,20 @@ export class Board {
   }
 
   validate(r, c) {
-    if(!this.fallingBlock) return false;
+    if (!this.fallingBlock) return false;
     const coordinates = this.coordinates;
     const row = this.currentRow;
     const col = this.currentCol;
-    const freeze = !this.valid(coordinates, row + r, col);
-    const notValid = !this.valid(coordinates, row, col + c);
-    if(notValid) return;
-    if(freeze) {
-      this.execute(null, "setTaken");
-      this.fallingBlock = null;
-      return false;
-    }
-    return true;
+    const bottom = !this.valid(coordinates, row + r, col);
+    const valid = this.valid(coordinates, row, col + c);
+    if (valid && !bottom) return true;
+    if (bottom) this.freeze();
+    return false;
+  }
+
+  freeze() {
+    this.execute(null, "setTaken");
+    this.fallingBlock = null;
   }
 
   createBoard(w, h) {
