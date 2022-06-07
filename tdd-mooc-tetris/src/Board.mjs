@@ -54,21 +54,14 @@ export class Board {
       this.coordinates = newCoordinates; 
     }
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
-    console.log(this.toString());
   }
   
   kick(coordinates, r, c) {
-    const width = this.board[0].length - 1;
     const atWall = this.atWall(coordinates, r, c);
-    if(atWall && this.valid(coordinates, r, c + 1)) {
-      this.currentCol++;
-      return true;
-    }
-    if(atWall && this.valid(coordinates, r, c - 1)) {
-       this.currentCol--;
-       return true;
-    }
-    return false;
+    if(!atWall) return false;
+    if(this.valid(coordinates, r, c + 1)) this.currentCol++;
+    if(this.valid(coordinates, r, c - 1)) this.currentCol--;
+    return true;
   }
 
   atWall(coordinates, r, c) {
