@@ -19,6 +19,10 @@ export class Block {
     this.#taken = true;
   }
 
+  isWall() {
+    return this.#color === "#";
+  }
+
   getCoordinates() {
     return [0];
   }
