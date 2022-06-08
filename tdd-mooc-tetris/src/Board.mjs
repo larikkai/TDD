@@ -111,6 +111,10 @@ export class Board {
     this.fallingBlock = null;
   }
 
+  setRowColTaken(row, col) {
+    this.board[row][col + 1] = new Block("X", true);
+  }
+
   createBoard(w, h) {
     return [...Array(h + 1)]
       .map((x) =>
