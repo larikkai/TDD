@@ -67,6 +67,12 @@ export class Board {
   cannotKick(coordinates, r, c) {
     const color = this.fallingBlock.getColor();
     if (color === "I") return true;
+    if (color === "L" || color === "J" || color === "T")
+      return this.centerColumnRule(coordinates, r, c);
+    return false;
+  }
+
+  centerColumnRule(coordinates, r, c) {
     let first = 0;
     return coordinates.some((value) => {
       const row = r + Math.floor(value / 4);
