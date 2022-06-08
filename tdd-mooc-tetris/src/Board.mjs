@@ -58,15 +58,15 @@ export class Board {
   }
 
   kick(coordinates, r, c) {
-    const atWall = this.atWall(coordinates, r, c);
-    const color = this.fallingBlock.getColor();
-    if (atWall || color === "I") return false;
+    if (this.cannotKick(coordinates, r, c)) return false;
     if (this.valid(coordinates, r, c + 1)) this.currentCol++;
     if (this.valid(coordinates, r, c - 1)) this.currentCol--;
     return true;
   }
 
-  atWall(coordinates, r, c) {
+  cannotKick(coordinates, r, c) {
+    const color = this.fallingBlock.getColor();
+    if (color === "I") return true;
     let first = 0;
     return coordinates.some((value) => {
       const row = r + Math.floor(value / 4);
