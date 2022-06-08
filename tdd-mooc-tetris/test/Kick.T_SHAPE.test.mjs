@@ -20,7 +20,7 @@ function move(board, n, r, c) {
   }
 }
 
-describe("Wall kick t_shape tetromino", () => {
+describe("Kick t_shape tetromino", () => {
   let board;
   beforeEach(() => {
     board = new Board(10, 6);
@@ -28,7 +28,7 @@ describe("Wall kick t_shape tetromino", () => {
     tick(board, 4);
   });
 
-  it("Falling tetromino can be wall kicked on left", () => {
+  it("Falling tetromino can be kicked on left", () => {
     board.rotate("left");
     move(board, 5, 0, -1);
     board.rotate("left");
@@ -45,7 +45,7 @@ describe("Wall kick t_shape tetromino", () => {
       .true;
   });
 
-  it("Falling tetromino can be wall kicked on right", () => {
+  it("Falling tetromino can be kicked on right", () => {
     board.rotate("right");
     move(board, 5, 0, 1);
     board.rotate("right");
@@ -62,7 +62,7 @@ describe("Wall kick t_shape tetromino", () => {
       .true;
   });
 
-  it("T shape cannot be wall kicked if center column taken - down", () => {
+  it("T shape cannot be kicked if center column taken - 1", () => {
     move(board, 5, 0, 1);
     board.setRowColTaken(3, 8);
     board.rotate("right");
@@ -79,7 +79,7 @@ describe("Wall kick t_shape tetromino", () => {
       .true;
   });
 
-  it("T shape cannot be wall kicked if center column taken - up", () => {
+  it("T shape cannot be kicked if center column taken - 2", () => {
     board.rotate("right");
     board.rotate("right");
     move(board, 5, 0, 1);
