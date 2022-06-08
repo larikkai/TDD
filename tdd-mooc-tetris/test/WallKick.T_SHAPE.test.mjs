@@ -61,4 +61,40 @@ describe("Wall kick t_shape tetromino", () => {
     expect(board.hasFalling(), "Player can rotate falling tetromino").to.be
       .true;
   });
+
+  it("T shape cannot be wall kicked if center column taken - down", () => {
+    move(board, 5, 0, 1);
+    board.setRowColTaken(3, 8);
+    board.rotate("right");
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ........X.
+       .......TTT
+       ........T.`
+    );
+    expect(board.hasFalling(), "Player can rotate falling tetromino").to.be
+      .true;
+  });
+
+  it("T shape cannot be wall kicked if center column taken - up", () => {
+    board.rotate("right");
+    board.rotate("right");
+    move(board, 5, 0, 1);
+    board.setRowColTaken(3, 8);
+    board.rotate("right");
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ........X.
+       ........T.
+       .......TTT`
+    );
+    expect(board.hasFalling(), "Player can rotate falling tetromino").to.be
+      .true;
+  });
 });
