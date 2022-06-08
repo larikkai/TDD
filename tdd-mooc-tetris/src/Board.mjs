@@ -60,20 +60,24 @@ export class Board {
   kick(coordinates, r, c) {
     const atWall = this.atWall(coordinates, r, c);
     const color = this.fallingBlock.getColor();
-    if (!atWall || color === "I") return false;
+    if (atWall || color === "I") return false;
     if (this.valid(coordinates, r, c + 1)) this.currentCol++;
     if (this.valid(coordinates, r, c - 1)) this.currentCol--;
     return true;
   }
 
   atWall(coordinates, r, c) {
+    let first = 0;
     return coordinates.some((value) => {
       const row = r + Math.floor(value / 4);
       const col = c + (value % 4);
       if (col < 0) return false;
       const taken = this.board[row][col].isTaken();
-      const atWall = this.board[row][col].isWall();
-      return atWall && taken ? true : false;
+      if (taken) first++;
+      const center = value === 1 || value === 5 || value === 9;
+      const color = this.board[row][col].getColor();
+      if (first === 1 && center && taken) return true;
+      return false;
     });
   }
 
@@ -81,7 +85,8 @@ export class Board {
     return !coordinates.some((value) => {
       const row = r + Math.floor(value / 4);
       const col = c + (value % 4);
-      return col < 0 ? true : this.board[row][col].isTaken();
+      if (col < 0 || col >= this.board[row].length) return true;
+      return this.board[row][col].isTaken();
     });
   }
 
