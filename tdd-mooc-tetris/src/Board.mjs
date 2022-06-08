@@ -80,11 +80,14 @@ export class Board {
       if (col < 0) return false;
       const taken = this.board[row][col].isTaken();
       if (taken) first++;
-      const center = value === 1 || value === 5 || value === 9;
-      const color = this.board[row][col].getColor();
-      if (first === 1 && center && taken) return true;
-      return false;
+      return this.firstTakenMidColumn(row, col, first, value, taken);
     });
+  }
+
+  firstTakenMidColumn(row, col, first, value, taken) {
+    const center = value === 1 || value === 5 || value === 9;
+    if (first === 1 && center && taken) return true;
+    return false;
   }
 
   valid(coordinates, r, c) {
