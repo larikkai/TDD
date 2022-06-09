@@ -122,7 +122,29 @@ export class Board {
 
   freeze() {
     this.execute(null, "setTaken");
+    this.lineClear();
     this.fallingBlock = null;
+  }
+
+  lineClear() {
+    let linesToClear = new Set();
+    this.coordinates.forEach((value) => {
+      const row = this.currentRow + Math.floor(value / 4);
+      const full = this.board[row].every((col) => {
+        return col.isTaken();
+      });
+      if (full) linesToClear.add(row);
+    });
+    linesToClear.forEach((row) => {
+      this.board.splice(row, 1);
+      const w = this.board[row].length;
+      this.board.unshift(
+        new Array(w)
+          .fill(new Block("#", true), 0, 1)
+          .fill(new Block("."), 1, w - 1)
+          .fill(new Block("#", true), w)
+      );
+    });
   }
 
   setRowColTaken(row, col) {
