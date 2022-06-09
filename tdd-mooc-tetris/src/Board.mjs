@@ -122,28 +122,32 @@ export class Board {
 
   freeze() {
     this.execute(null, "setTaken");
-    this.lineClear();
+    this.clearFullLines();
     this.fallingBlock = null;
   }
 
-  lineClear() {
-    let linesToClear = new Set();
+  clearFullLines() {
+    const linesToClear = this.getFullLines();
+    this.clearLines(linesToClear);
+  }
+
+  getFullLines() {
+    const lines = new Set();
     this.coordinates.forEach((value) => {
       const row = this.currentRow + Math.floor(value / 4);
       const full = this.board[row].every((col) => {
         return col.isTaken();
       });
-      if (full) linesToClear.add(row);
+      if (full) lines.add(row);
     });
-    linesToClear.forEach((row) => {
+    return lines;
+  }
+
+  clearLines(lines) {
+    lines.forEach((row) => {
       this.board.splice(row, 1);
-      const w = this.board[row].length;
-      this.board.unshift(
-        new Array(w)
-          .fill(new Block("#", true), 0, 1)
-          .fill(new Block("."), 1, w - 1)
-          .fill(new Block("#", true), w)
-      );
+      const w = this.board[row].length - 2;
+      this.board.unshift(this.addNewLineToBoard(w));
     });
   }
 
@@ -161,8 +165,8 @@ export class Board {
     return Array(w + 2)
       .fill(new Block("#", true), 0, 1)
       .fill(new Block("."), 1, w + 1)
-      .fill(new Block("#", true), w + 1)
-  } 
+      .fill(new Block("#", true), w + 1);
+  }
 
   initFallingBlock(block) {
     [this.fallingBlock, this.coordinates] = [block, block.getCoordinates()];
