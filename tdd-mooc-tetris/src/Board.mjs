@@ -153,14 +153,16 @@ export class Board {
 
   createBoard(w, h) {
     return [...Array(h + 1)]
-      .map((x) =>
-        Array(w + 2)
-          .fill(new Block("#", true), 0, 1)
-          .fill(new Block("."), 1, w + 1)
-          .fill(new Block("#", true), w + 1)
-      )
-      .fill(new Array(w + 2).fill(new Block("#", true)), h);
+      .map((x) => this.addNewLineToBoard(w))
+      .fill(Array(w + 2).fill(new Block("#", true)), h);
   }
+
+  addNewLineToBoard(w) {
+    return Array(w + 2)
+      .fill(new Block("#", true), 0, 1)
+      .fill(new Block("."), 1, w + 1)
+      .fill(new Block("#", true), w + 1)
+  } 
 
   initFallingBlock(block) {
     [this.fallingBlock, this.coordinates] = [block, block.getCoordinates()];
