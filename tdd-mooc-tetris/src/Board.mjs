@@ -1,4 +1,5 @@
 import { Block } from "./Block.mjs";
+import { EventManager } from "./EventManager.mjs";
 
 export class Board {
   board;
@@ -6,9 +7,15 @@ export class Board {
   currentCol;
   fallingBlock;
   coordinates;
+  events;
+  soft;
+  level;
+  combo;
 
   constructor(width, height) {
     this.board = this.createBoard(width, height);
+    this.events = new EventManager();
+    [this.soft, this.level, this.combo] = [0, 0, 0];
   }
 
   drop(block, row) {
@@ -16,10 +23,12 @@ export class Board {
     this.initFallingBlock(block);
     this.initRowCol(row);
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
+    if (this.level % 100 !== 99 && this.level < 998) this.level++;
   }
 
   tick() {
     if (!this.validate(1, 0)) return;
+    this.soft = 0;
     this.execute(new Block("."), "undraw");
     this.currentRow++;
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
@@ -31,6 +40,7 @@ export class Board {
 
   move(r, c) {
     if (!this.validate(r, c)) return;
+    if (r === 1 && c === 0) this.soft++;
     this.execute(new Block("."), "undraw");
     this.currentRow += r;
     this.currentCol += c;
@@ -128,7 +138,18 @@ export class Board {
 
   clearFullLines() {
     const linesToClear = this.getFullLines();
+    this.combo = linesToClear.size > 0 ? this.combo + 1 : 1;
     this.clearLines(linesToClear);
+    const empty = this.isEmptyBoard();
+    this.level += linesToClear.size;
+    this.events.notify(
+      "update_score",
+      this.soft,
+      linesToClear.size,
+      this.level,
+      empty,
+      this.combo
+    );
   }
 
   getFullLines() {
@@ -149,6 +170,12 @@ export class Board {
       const w = this.board[row].length - 2;
       this.board.unshift(this.addNewLineToBoard(w));
     });
+  }
+
+  isEmptyBoard() {
+    return !this.board.some((row) =>
+      row.some((col) => col.isTaken() && col.getColor() !== "#")
+    );
   }
 
   setRowColTaken(row, col) {
