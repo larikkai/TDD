@@ -19,10 +19,11 @@ export class EventManager {
       this.#listeners.get(event_type).filter((item) => item !== listener)
     );
   }
-  notify(event_type, ...data) {
+
+  notify(event_type, data) {
     if (!this.#listeners.get(event_type)) return;
     this.#listeners.get(event_type).forEach((listener) => {
-      listener.update(data);
+      listener(data);
     });
   }
 }
