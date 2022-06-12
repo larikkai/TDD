@@ -8,14 +8,12 @@ export class Board {
   fallingBlock;
   coordinates;
   events;
-  soft;
-  level;
-  combo;
+  state;
 
-  constructor(width, height) {
+  constructor(width, height, state) {
     this.board = this.createBoard(width, height);
     this.events = new EventManager();
-    [this.soft, this.level, this.combo] = [0, 0, 0];
+    this.state = state;
   }
 
   drop(block, row) {
@@ -23,12 +21,13 @@ export class Board {
     this.initFallingBlock(block);
     this.initRowCol(row);
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
-    if (this.level % 100 !== 99 && this.level < 998) this.level++;
+    const level = this.state.level;
+    if (level % 100 !== 99 && level < 998) this.state.level++;
   }
 
   tick() {
     if (!this.validate(1, 0)) return;
-    this.soft = 0;
+    this.state.soft = 0;
     this.execute(new Block("."), "undraw");
     this.currentRow++;
     this.execute(new Block(this.fallingBlock.getColor()), "draw");
@@ -40,7 +39,7 @@ export class Board {
 
   move(r, c) {
     if (!this.validate(r, c)) return;
-    if (r === 1 && c === 0) this.soft++;
+    if (r === 1 && c === 0) this.state.soft++;
     this.execute(new Block("."), "undraw");
     this.currentRow += r;
     this.currentCol += c;
@@ -138,18 +137,15 @@ export class Board {
 
   clearFullLines() {
     const linesToClear = this.getFullLines();
-    this.combo = linesToClear.size > 0 ? this.combo + 1 : 1;
     this.clearLines(linesToClear);
+    const combo = this.state.combo;
     const empty = this.isEmptyBoard();
-    this.level += linesToClear.size;
-    this.events.notify(
-      "update_score",
-      this.soft,
-      linesToClear.size,
-      this.level,
-      empty,
-      this.combo
-    );
+    const level = this.state.level;
+    this.state.level = level + linesToClear.size;
+    this.state.combo = linesToClear.size > 0 ? combo + 1 : 1;
+    this.state.lines = linesToClear.size;
+    this.state.empty = empty;
+    this.events.notify("update_score", this.state);
   }
 
   getFullLines() {

@@ -1,4 +1,5 @@
 import { Board } from "./Board.mjs";
+import { State } from "./State.mjs";
 import { Shapes } from "./Shapes.mjs";
 
 export class Tetromino {
@@ -19,7 +20,7 @@ export class Tetromino {
   }
 
   toString() {
-    const board = new Board(4, 4);
+    const board = new Board(4, 4, new State());
     board.drop(this, 0);
     return board.toString();
   }
