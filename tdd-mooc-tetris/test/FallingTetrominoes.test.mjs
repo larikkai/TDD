@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
+import { State } from "../src/State.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
 
 function fallToBottom(board) {
@@ -11,7 +12,7 @@ function fallToBottom(board) {
 describe("Falling tetrominoes", () => {
   let board;
   beforeEach(() => {
-    board = new Board(10, 6);
+    board = new Board(10, 6, new State());
   });
 
   it("start from the top middle", () => {

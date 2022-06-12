@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
+import { State } from "../src/State.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
 
 function tick(board, n) {
@@ -23,7 +24,7 @@ function move(board, n, r, c) {
 describe("Kick J shape tetromino", () => {
   let board;
   beforeEach(() => {
-    board = new Board(10, 6);
+    board = new Board(10, 6, new State());
     board.drop(Tetromino.J_SHAPE);
     tick(board, 4);
   });

@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
+import { State } from "../src/State.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
 
 function tick(board, n) {
@@ -29,7 +30,7 @@ function fill(board, r, s, e) {
 describe("Full lines clear", () => {
   let board;
   beforeEach(() => {
-    board = new Board(6, 4);
+    board = new Board(6, 4, new State());
     fill(board, 3, 0, 1);
     fill(board, 3, 3, 5);
   });
