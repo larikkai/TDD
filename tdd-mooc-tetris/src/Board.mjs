@@ -131,21 +131,23 @@ export class Board {
 
   freeze() {
     this.execute(null, "setTaken");
-    this.clearFullLines();
     this.fallingBlock = null;
+    const linesCount = this.clearFullLines();
+    if (linesCount) this.updateState(linesCount);
+  }
+
+  updateState(linesCount) {
+    this.state.level = this.state.level + linesCount;
+    this.state.combo = linesCount > 0 ? this.state.combo + 1 : 1;
+    this.state.lines = linesCount;
+    this.state.empty = this.isEmptyBoard();
+    this.events.notify("update_score", this.state);
   }
 
   clearFullLines() {
     const linesToClear = this.getFullLines();
     this.clearLines(linesToClear);
-    const combo = this.state.combo;
-    const empty = this.isEmptyBoard();
-    const level = this.state.level;
-    this.state.level = level + linesToClear.size;
-    this.state.combo = linesToClear.size > 0 ? combo + 1 : 1;
-    this.state.lines = linesToClear.size;
-    this.state.empty = empty;
-    this.events.notify("update_score", this.state);
+    return linesToClear.size;
   }
 
   getFullLines() {
