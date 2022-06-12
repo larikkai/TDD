@@ -101,7 +101,11 @@ export class Board {
 
   valid(coordinates, r, c) {
     return !coordinates.some((value) => {
-      const row = r + Math.floor(value / 4);
+      let row = r + Math.floor(value / 4);
+      if (row < 0) {
+        this.currentRow = 0;
+        row = 0;
+      }
       const col = c + (value % 4);
       if (col < 0 || col >= this.board[row].length) return true;
       return this.board[row][col].isTaken();

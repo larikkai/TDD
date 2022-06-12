@@ -20,11 +20,10 @@ describe("Rotate falling t_shape tetromino", () => {
   beforeEach(() => {
     board = new Board(10, 6, new State());
     board.drop(Tetromino.T_SHAPE);
-    tick(board, 4);
   });
 
   it("Cannot rotate if no falling tetromino", () => {
-    board.tick();
+    tick(board, 5);
     board.rotate("left");
 
     expect(board.toString()).to.equalShape(
@@ -38,7 +37,40 @@ describe("Rotate falling t_shape tetromino", () => {
     expect(board.hasFalling(), "No tetromino to rotate").to.be.false;
   });
 
+  it("Dropped tetromino can be rotated at start if room", () => {
+    tick(board, 5);
+    board.rotate("left");
+    board.drop(Tetromino.I_SHAPE);
+    board.rotate("left");
+
+    expect(board.toString()).to.equalShape(
+      `.....I....
+       .....I....
+       .....I....
+       .....I....
+       ...TTT....
+       ....T.....`
+    );
+    expect(board.hasFalling(), "No tetromino to rotate").to.be.true;
+  });
+
+  it("Falling tetromino can be rotated left at start", () => {
+    board.rotate("left");
+
+    expect(board.toString()).to.equalShape(
+      `....T.....
+       ....TT....
+       ....T.....
+       ..........
+       ..........
+       ..........`
+    );
+    expect(board.hasFalling(), "Player can rotate falling tetromino").to.be
+      .true;
+  });
+
   it("Falling tetromino can be rotated left", () => {
+    tick(board, 4);
     board.rotate("left");
 
     expect(board.toString()).to.equalShape(
@@ -54,6 +86,7 @@ describe("Rotate falling t_shape tetromino", () => {
   });
 
   it("Falling tetromino can be rotated right", () => {
+    tick(board, 4);
     board.rotate("right");
 
     expect(board.toString()).to.equalShape(
@@ -69,7 +102,7 @@ describe("Rotate falling t_shape tetromino", () => {
   });
 
   it("Only falling block will rotate", () => {
-    board.tick();
+    tick(board, 5);
     board.drop(Tetromino.T_SHAPE);
     board.tick();
     board.rotate("left");
@@ -87,6 +120,7 @@ describe("Rotate falling t_shape tetromino", () => {
   });
 
   it("Can rotate left if no room and kick possible", () => {
+    tick(board, 4);
     board.rotate("left");
     board.tick();
     board.drop(Tetromino.T_SHAPE);
@@ -107,6 +141,7 @@ describe("Rotate falling t_shape tetromino", () => {
   });
 
   it("Can rotate right if no room and kick possible", () => {
+    tick(board, 4);
     board.rotate("right");
     board.tick();
     board.drop(Tetromino.T_SHAPE);
