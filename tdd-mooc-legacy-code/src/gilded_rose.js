@@ -13,7 +13,7 @@ class Shop {
 
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
-      let {name, sellIn, quality} = this.items[i];
+      let { name, sellIn, quality } = this.items[i];
       if (name !== "Aged Brie" && name !== "Backstage passes to a TAFKAL80ETC concert") {
         if (quality > 0 && name !== "Sulfuras, Hand of Ragnaros") quality--;
       } else {
@@ -30,26 +30,26 @@ class Shop {
         }
       }
       if (name !== "Sulfuras, Hand of Ragnaros") {
-        sellIn--; 
+        sellIn--;
       }
-      if (sellIn < 0) {
-        if (name !== "Aged Brie") {
-          if (name !== "Backstage passes to a TAFKAL80ETC concert") {
-            if (quality > 0) {
-              if (name !== "Sulfuras, Hand of Ragnaros") {
-                quality--;
-              }
-            }
-          } else {
-            quality = 0;
+      if (sellIn >= 0) {
+        this.items[i] = { name, sellIn, quality };
+        return this.items;
+      }
+      if (name !== "Aged Brie") {
+        if (name !== "Backstage passes to a TAFKAL80ETC concert" && quality > 0) {
+          if (name !== "Sulfuras, Hand of Ragnaros") {
+            quality--;
           }
         } else {
-          if (quality < 50) {
-            quality = quality + 1;
-          }
+          quality = 0;
+        }
+      } else {
+        if (quality < 50) {
+          quality = quality + 1;
         }
       }
-    this.items[i] = {name, sellIn, quality};
+      this.items[i] = { name, sellIn, quality };
     }
     return this.items;
   }
