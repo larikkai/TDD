@@ -6,18 +6,14 @@ describe("Gilded Rose", function () {
     const gildedRose = new Shop([new Item("foo", 0, 0)]);
     const items = gildedRose.updateQuality();
     expect(items[0].name).to.equal("foo");
+    expect(items[0].quality).to.equal(0);
+    expect(items[0].sellIn).to.equal(-1);
   });
 
   it("Empty shop can be created", function () {
     const gildedRose = new Shop();
     const items = gildedRose.updateQuality();
     expect(items.length).to.equal(0);
-  });
-
-  it("Random item quality decreases if > 0", function () {
-    const gildedRose = new Shop([new Item("foo", 0, 1)]);
-    const items = gildedRose.updateQuality();
-    expect(items[0].quality).to.equal(0);
   });
 
   it("Random item quality decreases by 2 if selling < 0", function () {
@@ -68,10 +64,34 @@ describe("Gilded Rose", function () {
     expect(items[0].quality).to.equal(50);
   });
 
+  it("TAFKAL80ETC quality increase", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 2, 5)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(8);
+  });
+
+  it("TAFKAL80ETC quality increase2", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 15, 5)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(6);
+  });
+
+  it("TAFKAL80ETC quality increase3", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 6, 5)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(7);
+  });
+
+  it("TAFKAL80ETC quality increase4", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 11, 5)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(6);
+  });
+
   it("Hand of Ragnaros quality does not increase if > 0", function () {
     const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", 0, 1)]);
     const items = gildedRose.updateQuality();
-    expect(items[0].quality).to.equal(1);
+    expect(items[0].sellIn).to.equal(0);
   });
 
   it("Hand of Ragnaros quality does not increase if sellin < 0", function () {
