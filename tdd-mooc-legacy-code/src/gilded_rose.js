@@ -13,30 +13,32 @@ class Shop {
 
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
-      let { name, sellIn, quality } = this.items[i];
       const ab = "Aged Brie";
       const taf = "Backstage passes to a TAFKAL80ETC concert";
       const rag = "Sulfuras, Hand of Ragnaros";
-      if (name === ab) {
-        if (quality < 50) quality++;
-        sellIn--;
-        if (sellIn < 0 && quality < 50) quality++;
-      } else if (name === taf) {
-        if (quality < 50) quality++;
-        if (sellIn < 11 && quality < 50) quality++;
-        if (sellIn < 6 && quality < 50) quality++;
-        sellIn--;
-        if (sellIn < 0) quality = 0;
-      } else if (name === rag) {
-        if (sellIn >= 0 && quality > 0) quality--;
+      const item = this.items[i];
+      if (item.name === ab) this.updateAgeBrie(item);
+      else if (item.name === taf) {
+        if (item.quality < 50) item.quality++;
+        if (item.sellIn < 11 && item.quality < 50) item.quality++;
+        if (item.sellIn < 6 && item.quality < 50) item.quality++;
+        item.sellIn--;
+        if (item.sellIn < 0) item.quality = 0;
+      } else if (item.name === rag) {
+        if (item.sellIn >= 0 && item.quality > 0) item.quality--;
       } else {
-        if (quality > 0) quality--;
-        sellIn--;
-        if (sellIn < 0 && quality > 0) quality--;
+        if (item.quality > 0) item.quality--;
+        item.sellIn--;
+        if (item.sellIn < 0 && item.quality > 0) item.quality--;
       }
-      this.items[i] = { name, sellIn, quality };
     }
     return this.items;
+  }
+
+  updateAgeBrie(item) {
+    if (item.quality < 50) item.quality++;
+    item.sellIn--;
+    if (item.sellIn < 0 && item.quality < 50) item.quality++;
   }
 }
 
