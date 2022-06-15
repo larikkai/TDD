@@ -87,4 +87,9 @@ describe("Gilded Rose", function () {
     const gildedRose = new Shop([new Item("foo", null, 5)]);
     expect(gildedRose.items[0].sellIn).to.equal(0);
   });
+
+  it("Item without quality value gets default quality value 0", function () {
+    const gildedRose = new Shop([new Item("foo", null)]);
+    expect(gildedRose.items[0].quality).to.equal(0);
+  });
 });
