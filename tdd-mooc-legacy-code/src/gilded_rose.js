@@ -20,11 +20,7 @@ class Shop {
       if (item.name === ab) this.updateAgeBrie(item);
       else if (item.name === taf) this.updateTafka(item);
       else if (item.name === rag) this.updateSulfuras(item);
-      else {
-        if (item.quality > 0) item.quality--;
-        item.sellIn--;
-        if (item.sellIn < 0 && item.quality > 0) item.quality--;
-      }
+      else this.updateItem(item);
     }
     return this.items;
   }
@@ -45,6 +41,12 @@ class Shop {
 
   updateSulfuras(item) {
     if (item.sellIn >= 0 && item.quality > 0) item.quality--;
+  }
+
+  updateItem(item) {
+    if (item.quality > 0) item.quality--;
+    item.sellIn--;
+    if (item.sellIn < 0 && item.quality > 0) item.quality--;
   }
 }
 
