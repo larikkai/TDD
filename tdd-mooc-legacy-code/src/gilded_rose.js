@@ -13,21 +13,22 @@ class Shop {
 
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
-      const ab = "Aged Brie";
-      const taf = "Backstage passes to a TAFKAL80ETC concert";
-      const rag = "Sulfuras, Hand of Ragnaros";
-      const item = this.items[i];
-      if (item.name === ab) this.updateAgeBrie(item);
-      else if (item.name === taf) this.updateTafka(item);
-      else if (item.name === rag) this.updateSulfuras(item);
-      else this.updateItem(item);
+      this.update(this.items[i]);
     }
     return this.items;
   }
 
+  update(item) {
+    const { name } = item;
+    if (name === "Aged Brie") this.updateAgeBrie(item);
+    else if (name === "Backstage passes to a TAFKAL80ETC concert") this.updateTafka(item);
+    else if (name === "Sulfuras, Hand of Ragnaros") this.updateSulfuras(item);
+    else this.updateItem(item);
+  }
+
   updateAgeBrie(item) {
-    if (item.quality < 50) item.quality++;
     item.sellIn--;
+    if (item.quality < 50) item.quality++;
     if (item.sellIn < 0 && item.quality < 50) item.quality++;
   }
 
@@ -44,8 +45,8 @@ class Shop {
   }
 
   updateItem(item) {
-    if (item.quality > 0) item.quality--;
     item.sellIn--;
+    if (item.quality > 0) item.quality--;
     if (item.sellIn < 0 && item.quality > 0) item.quality--;
   }
 }
