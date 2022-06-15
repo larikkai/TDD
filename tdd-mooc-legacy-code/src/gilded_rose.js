@@ -45,6 +45,14 @@ class Shop {
     if (item.quality > 0) item.quality--;
     if (item.sellIn < 0 && item.quality > 0) item.quality--;
   }
+
+  endOfDay() {
+    this.items.forEach((item) => {
+      item.sellIn--;
+      item.quality--;
+    });
+    return this.items;
+  }
 }
 
 module.exports = {
