@@ -14,35 +14,30 @@ class Shop {
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
       let { name, sellIn, quality } = this.items[i];
-      if (name !== "Aged Brie" && name !== "Backstage passes to a TAFKAL80ETC concert") {
-        if (quality > 0 && name !== "Sulfuras, Hand of Ragnaros") quality--;
-      } else {
-        if (quality < 50) {
-          quality++;
-          if (name === "Backstage passes to a TAFKAL80ETC concert") {
-            if (sellIn < 11 && quality < 50) {
-              quality++;
-            }
-            if (sellIn < 6 && quality < 50) {
-              quality++;
-            }
-          }
-        }
+      const ab = "Aged Brie";
+      const taf = "Backstage passes to a TAFKAL80ETC concert";
+      const rag = "Sulfuras, Hand of Ragnaros";
+      if (name === ab && quality < 50) quality++;
+      if (name === taf && quality < 50) {
+        quality++;
+        if (sellIn < 11 && quality < 50) quality++;
+        if (sellIn < 6 && quality < 50) quality++;
       }
-      if (name !== "Sulfuras, Hand of Ragnaros") {
+      if (quality > 0 && name !== ab && name !== taf && name !== rag) quality--;
+      if (name !== rag) {
         sellIn--;
       }
       if (sellIn >= 0) {
         this.items[i] = { name, sellIn, quality };
         return this.items;
       }
-      if (name === "Aged Brie") {
+      if (name === ab) {
         if (quality < 50) quality++;
         this.items[i] = { name, sellIn, quality };
         return this.items;
       }
-      if (name === "Backstage passes to a TAFKAL80ETC concert") quality = 0;
-      if (name !== "Sulfuras, Hand of Ragnaros" && quality > 0) quality--;
+      if (name === taf) quality = 0;
+      if (name !== rag && quality > 0) quality--;
       this.items[i] = { name, sellIn, quality };
     }
     return this.items;
