@@ -20,9 +20,9 @@ class Shop {
 
   update(item) {
     const { name } = item;
-    if (name === "Aged Brie") this.updateAgeBrie(item);
+    if (name === "Sulfuras, Hand of Ragnaros") return;
+    else if (name === "Aged Brie") this.updateAgeBrie(item);
     else if (name === "Backstage passes to a TAFKAL80ETC concert") this.updateTafka(item);
-    else if (name === "Sulfuras, Hand of Ragnaros") this.updateSulfuras(item);
     else this.updateItem(item);
   }
 
@@ -38,10 +38,6 @@ class Shop {
     if (item.sellIn < 6 && item.quality < 50) item.quality++;
     item.sellIn--;
     if (item.sellIn < 0) item.quality = 0;
-  }
-
-  updateSulfuras(item) {
-    if (item.sellIn >= 0 && item.quality > 0) item.quality--;
   }
 
   updateItem(item) {
