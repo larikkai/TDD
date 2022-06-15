@@ -19,9 +19,8 @@ class Shop {
       const item = this.items[i];
       if (item.name === ab) this.updateAgeBrie(item);
       else if (item.name === taf) this.updateTafka(item);
-      else if (item.name === rag) {
-        if (item.sellIn >= 0 && item.quality > 0) item.quality--;
-      } else {
+      else if (item.name === rag) this.updateSulfuras(item);
+      else {
         if (item.quality > 0) item.quality--;
         item.sellIn--;
         if (item.sellIn < 0 && item.quality > 0) item.quality--;
@@ -42,6 +41,10 @@ class Shop {
     if (item.sellIn < 6 && item.quality < 50) item.quality++;
     item.sellIn--;
     if (item.sellIn < 0) item.quality = 0;
+  }
+
+  updateSulfuras(item) {
+    if (item.sellIn >= 0 && item.quality > 0) item.quality--;
   }
 }
 
