@@ -36,19 +36,13 @@ class Shop {
         this.items[i] = { name, sellIn, quality };
         return this.items;
       }
-      if (name !== "Aged Brie") {
-        if (name !== "Backstage passes to a TAFKAL80ETC concert" && quality > 0) {
-          if (name !== "Sulfuras, Hand of Ragnaros") {
-            quality--;
-          }
-        } else {
-          quality = 0;
-        }
-      } else {
-        if (quality < 50) {
-          quality = quality + 1;
-        }
+      if (name === "Aged Brie") {
+        if (quality < 50) quality++;
+        this.items[i] = { name, sellIn, quality };
+        return this.items;
       }
+      if (name === "Backstage passes to a TAFKAL80ETC concert") quality = 0;
+      if (name !== "Sulfuras, Hand of Ragnaros" && quality > 0) quality--;
       this.items[i] = { name, sellIn, quality };
     }
     return this.items;
