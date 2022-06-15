@@ -1,8 +1,8 @@
 class Item {
-  constructor(name, sellIn, quality) {
-    this.name = name;
-    this.sellIn = sellIn;
-    this.quality = quality;
+  constructor(...args) {
+    this.name = args[0] ?? "tempName";
+    this.sellIn = args[1] ?? 0;
+    this.quality = args[2] ?? 0;
   }
 }
 

@@ -82,4 +82,9 @@ describe("Gilded Rose", function () {
     expect(items[0].sellIn).to.equal(0);
     expect(items[0].quality).to.equal(1);
   });
+
+  it("Item without sellin value gets default sellin value 0", function () {
+    const gildedRose = new Shop([new Item("foo", null, 5)]);
+    expect(gildedRose.items[0].sellIn).to.equal(0);
+  });
 });
