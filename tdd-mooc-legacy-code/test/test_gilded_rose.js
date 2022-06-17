@@ -103,23 +103,22 @@ describe("Gilded Rose", function () {
     const item1 = new Item("f", 1, 2);
     const item2 = new Item("g", 5, 5);
     const gildedRose = new Shop([item1, item2]);
-    const items = gildedRose.endOfDay();
-    expect(items[0].sellIn).to.equal(0);
-    expect(items[0].quality).to.equal(1);
-    expect(items[1].sellIn).to.equal(4);
-    expect(items[1].quality).to.equal(4);
+    gildedRose.endOfDay().items;
+    expect(gildedRose.items[0].sellIn).to.equal(0);
+    expect(gildedRose.items[0].quality).to.equal(1);
+    expect(gildedRose.items[1].sellIn).to.equal(4);
+    expect(gildedRose.items[1].quality).to.equal(4);
   });
 
   it("Once sellin < 0 then quality drops twice as fast", function () {
     const gildedRose = new Shop([new Item("f", 1, 8)]);
-    gildedRose.endOfDay();
-    const items = gildedRose.endOfDay();
+    daysWillPass(gildedRose, 2);
     expect(gildedRose.items[0].quality).to.equal(5);
   });
 
-  it("End of day uality never negative", function () {
+  it("End of day quality never negative", function () {
     const gildedRose = new Shop([new Item("f", 1, 0)]);
-    const items = gildedRose.endOfDay();
+    gildedRose.endOfDay();
     expect(gildedRose.items[0].quality).to.equal(0);
   });
 

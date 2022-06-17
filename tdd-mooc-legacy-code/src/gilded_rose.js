@@ -53,7 +53,8 @@ class Shop {
   }
 
   endOfDay() {
-    return this.updateQuality();
+    this.updateQuality();
+    return this;
   }
 }
 
