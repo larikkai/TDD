@@ -2,7 +2,13 @@ class Item {
   constructor(...args) {
     this.name = args[0] ?? "tempName";
     this.sellIn = args[1] ?? 0;
-    this.quality = args[2] ?? 0;
+    this.quality = this.initQuality(args[2]);
+  }
+
+  initQuality(value) {
+    if (!value || value < 0) return 0;
+    if (value > 50) return 50;
+    return value;
   }
 }
 
@@ -47,11 +53,7 @@ class Shop {
   }
 
   endOfDay() {
-    this.items.forEach((item) => {
-      item.sellIn--;
-      item.quality--;
-    });
-    return this.items;
+    return this.updateQuality();
   }
 }
 

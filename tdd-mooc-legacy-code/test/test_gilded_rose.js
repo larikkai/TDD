@@ -1,6 +1,12 @@
 var { expect } = require("chai");
 var { Shop, Item } = require("../src/gilded_rose.js");
 
+function daysWillPass(shop, n) {
+  for (let i = 1; i <= n; i++) {
+    shop.endOfDay();
+  }
+}
+
 describe("Gilded Rose", function () {
   it("Empty shop can be created", function () {
     const gildedRose = new Shop();
@@ -102,5 +108,34 @@ describe("Gilded Rose", function () {
     expect(items[0].quality).to.equal(1);
     expect(items[1].sellIn).to.equal(4);
     expect(items[1].quality).to.equal(4);
+  });
+
+  it("Once sellin < 0 then quality drops twice as fast", function () {
+    const gildedRose = new Shop([new Item("f", 1, 8)]);
+    gildedRose.endOfDay();
+    const items = gildedRose.endOfDay();
+    expect(gildedRose.items[0].quality).to.equal(5);
+  });
+
+  it("End of day uality never negative", function () {
+    const gildedRose = new Shop([new Item("f", 1, 0)]);
+    const items = gildedRose.endOfDay();
+    expect(gildedRose.items[0].quality).to.equal(0);
+  });
+
+  it("Cannot create item with negative quality", function () {
+    const gildedRose = new Shop([new Item("f", 1, -1)]);
+    expect(gildedRose.items[0].quality).to.equal(0);
+  });
+
+  it("Aged Brie increaces increases quality the older it gets", function () {
+    const gildedRose = new Shop([new Item("Aged Brie", 5, 1)]);
+    daysWillPass(gildedRose, 4);
+    expect(gildedRose.items[0].quality).to.equal(5);
+  });
+
+  it("Cannot create item with quality higher than 50", function () {
+    const gildedRose = new Shop([new Item("f", 1, 100)]);
+    expect(gildedRose.items[0].quality).to.equal(50);
   });
 });
