@@ -18,14 +18,11 @@ describe("Gilded Rose", function () {
     expect(gildedRose.items.length).to.equal(0);
   });
 
-<<<<<<< HEAD
   it('When creating item without name - set name "tempName"', function () {
     const gildedRose = new Shop([new Item(null, 1, -1)]);
     expect(gildedRose.items[0].name).to.equal("tempName");
   });
 
-=======
->>>>>>> 3debd181806704921358997f672e8d48b251258d
   it("Cannot create item with negative quality", function () {
     const gildedRose = new Shop([new Item("f", 1, -1)]);
     expect(gildedRose.items[0].quality).to.equal(0);
