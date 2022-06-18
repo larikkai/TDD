@@ -17,7 +17,7 @@ describe("Gilded Rose", function () {
     gildedRose.endOfDay();
     expect(gildedRose.items.length).to.equal(0);
   });
-  
+
   it("Cannot create item with negative quality", function () {
     const gildedRose = new Shop([new Item("f", 1, -1)]);
     expect(gildedRose.items[0].quality).to.equal(0);
@@ -69,7 +69,6 @@ describe("Gilded Rose", function () {
     daysWillPass(gildedRose, 2);
     expect(gildedRose.items[0].quality).to.equal(5);
   });
-
 
   it("Aged Brie quality increases by two if quality < 49 and selling < 1", function () {
     const gildedRose = new Shop([new Item(brie, 0, 48)]);
