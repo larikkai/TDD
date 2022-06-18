@@ -18,7 +18,7 @@ describe("Gilded Rose", function () {
     expect(gildedRose.items.length).to.equal(0);
   });
 
-  it('Cannot create item without name - gets "tempName"', function () {
+  it('When creating item without name - set name "tempName"', function () {
     const gildedRose = new Shop([new Item(null, 1, -1)]);
     expect(gildedRose.items[0].name).to.equal("tempName");
   });
@@ -44,7 +44,7 @@ describe("Gilded Rose", function () {
     expect(gildedRose.items[0].quality).to.equal(0);
   });
 
-  it("At the end of each day sellIn and quality decreases", function () {
+  it("At the end of each day normal item values decrease", function () {
     const gildedRose = new Shop([new Item("foo", 0, 0)]);
     gildedRose.endOfDay();
     expect(gildedRose.items[0].name).to.equal("foo");
@@ -52,7 +52,7 @@ describe("Gilded Rose", function () {
     expect(gildedRose.items[0].sellIn).to.equal(-1);
   });
 
-  it("After last selliIn date quality drops twice as fast", function () {
+  it("After last selliIn date normal item quality drops twice as fast", function () {
     const gildedRose = new Shop([new Item("f", 1, 8)]);
     daysWillPass(gildedRose, 2);
     expect(gildedRose.items[0].quality).to.equal(5);
@@ -76,7 +76,7 @@ describe("Gilded Rose", function () {
     expect(gildedRose.items[0].quality).to.equal(49);
   });
 
-  it("Aged Brie increaces increases quality the older it gets", function () {
+  it("Aged Brie increaces quality the older it gets multiple days", function () {
     const gildedRose = new Shop([new Item(brie, 5, 1)]);
     daysWillPass(gildedRose, 4);
     expect(gildedRose.items[0].quality).to.equal(5);
@@ -112,7 +112,7 @@ describe("Gilded Rose", function () {
     expect(gildedRose.items[0].quality).to.equal(48);
   });
 
-  it("Sulfuras quality after creation is always 80", function () {
+  it("Sulfuras quality after is always 80", function () {
     const gildedRose = new Shop([new Item(sulfuras, 0, 1)]);
     gildedRose.endOfDay();
     expect(gildedRose.items[0].quality).to.equal(80);
@@ -124,7 +124,7 @@ describe("Gilded Rose", function () {
     expect(gildedRose.items[0].quality).to.equal(0);
   });
 
-  it("Conjured items degrade in quality twice as fast as normal", function () {
+  it("Conjured items decrease in quality twice as fast as normal", function () {
     const normal = new Item("foo", 1, 10);
     const conjured = new Item("Conjured", 1, 10);
     const gildedRose = new Shop([normal, conjured]);
@@ -133,7 +133,7 @@ describe("Gilded Rose", function () {
     expect(gildedRose.items[1].quality).to.equal(8);
   });
 
-  it("Conjured items degrade in quality by 4 after last sellIn day", function () {
+  it("Conjured items decrease in quality by 4 after last sellIn day", function () {
     const gildedRose = new Shop([new Item("Conjured", 0, 10)]);
     gildedRose.endOfDay();
     expect(gildedRose.items[0].quality).to.equal(6);
