@@ -6,6 +6,7 @@ class Item {
   }
 
   initQuality(value) {
+    if (this.name === "Sulfuras, Hand of Ragnaros") return 80;
     if (!value || value < 0) return 0;
     if (value > 50) return 50;
     return value;
@@ -29,6 +30,7 @@ class Shop {
     if (name === "Sulfuras, Hand of Ragnaros") return;
     else if (name === "Aged Brie") this.updateAgeBrie(item);
     else if (name === "Backstage passes to a TAFKAL80ETC concert") this.updateTafka(item);
+    else if (name === "Conjured") this.updateConjuredItem(item);
     else this.updateItem(item);
   }
 
@@ -50,6 +52,12 @@ class Shop {
     item.sellIn--;
     if (item.quality > 0) item.quality--;
     if (item.sellIn < 0 && item.quality > 0) item.quality--;
+  }
+
+  updateConjuredItem(item) {
+    item.sellIn--;
+    if (item.quality > 0) item.quality -= 2;
+    if (item.sellIn < 0 && item.quality > 0) item.quality -= 2;
   }
 
   endOfDay() {
