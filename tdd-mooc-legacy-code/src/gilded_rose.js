@@ -7,8 +7,8 @@ class Item {
 
   initQuality(value) {
     if (this.name === "Sulfuras, Hand of Ragnaros") return 80;
-    if (!value || value < 0) return 0;
-    if (value > 50) return 50;
+    if (!value || value < 1) return 0;
+    if (value > 49) return 50;
     return value;
   }
 }
