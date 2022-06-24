@@ -18,7 +18,7 @@ describe("There is life!", () => {
     const grid = new Grid("bbb$ooo$bbb!", 3, iterations);
     expect(grid.toString()).to.equal("bob$bob$bob!");
   });
-  
+
   it("Blinker lives with two iteration", () => {
     let iterations = 2;
     const grid = new Grid("bbb$ooo$bbb!", 3, iterations);

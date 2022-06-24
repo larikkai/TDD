@@ -14,7 +14,7 @@ export class Grid {
         if (i < n - width - 2 && newGrid[i + width + 2] === "o") ne++;
         if (i < n - width - 1 && newGrid[i + width + 1] === "o") ne++;
         if (i < n - width && newGrid[i + width] === "o") ne++;
-        if (i > width + 2 && newGrid[i - width - 2] === "o") ne++; 
+        if (i > width + 2 && newGrid[i - width - 2] === "o") ne++;
         if (i > width + 1 && newGrid[i - width - 1] === "o") ne++;
         if (i > width && newGrid[i - width] === "o") ne++;
 
