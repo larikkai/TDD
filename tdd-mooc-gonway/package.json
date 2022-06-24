@@ -20,7 +20,6 @@
     "parallel": true
   },
   "scripts": {
-    "start": "node src/index.js",
     "test": "mocha 'test/**/*.test.mjs'",
     "autotest": "npm run test -- --watch",
     "format": "prettier --write ."
