@@ -1,13 +1,13 @@
 import { expect } from "chai";
 import { Grid } from "../src/Grid.mjs";
+import { Shape } from "../src/Shape.mjs";
 
 describe("The grid to enables life", () => {
   let grid;
-  beforeEach(() => {
-    grid = new Grid(3, 3);
-  });
 
   it("The grid starts empty", () => {
-    expect(grid.toString()).to.equal("bbb$bbb$bbb!");
+    let iterations = 1;
+    const grid = new Grid("bbb$ooo$bbb!", 3, iterations);
+    expect(grid.toString()).to.equal("bob$bob$bob!");
   });
 });
