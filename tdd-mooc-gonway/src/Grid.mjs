@@ -8,23 +8,17 @@ export class Grid {
   }
 
   createGrid(w, h) {
-    return [...Array(h)]
-      .map((row) => this.addNewRow(w));
+    return [...Array(h)].map((row) => this.addNewRow(w));
   }
 
   addNewRow(w) {
-    return Array(w)
-      .fill(new Cell(false));
+    return Array(w).fill(new Cell(false));
   }
 
   toString() {
     return (
       this.#grid
-        .map((row) =>
-          row
-            .map((col) => col.getColor())
-            .join("")
-        )
+        .map((row) => row.map((col) => col.getColor()).join(""))
         .join("$") + "!"
     );
   }
