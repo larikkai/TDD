@@ -7,4 +7,9 @@ describe("Shapes from input string", () => {
     shape = new Shape();
     expect(shape.toString()).to.equal("");
   });
+
+  it("Correct coordinates from input string", () => {
+    shape = new Shape("bob$bob$bob!");
+    expect(shape.getCoordinates().toString()).to.equal("1,4,7");
+  });
 });
