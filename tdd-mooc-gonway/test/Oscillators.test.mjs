@@ -10,16 +10,16 @@ function distinct(s, n) {
   return distinct.size;
 }
 
-describe("There is life!", () => {
+describe("Oscillators lifes!", () => {
   let grid;
 
-  it("Blinker lives with one iteration", () => {
+  it("Blinker shape changes when iterating", () => {
     let iterations = 1;
     const grid = new Grid("bbb$ooo$bbb!", 3, iterations);
     expect(grid.toString()).to.equal("bob$bob$bob!");
   });
 
-  it("Blinker lives with two iteration", () => {
+  it("Blinker shape back to default when iterating twice", () => {
     let iterations = 2;
     const grid = new Grid("bbb$ooo$bbb!", 3, iterations);
     expect(grid.toString()).to.equal("bbb$ooo$bbb!");

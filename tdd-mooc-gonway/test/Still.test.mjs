@@ -13,7 +13,7 @@ function distinct(s, n) {
 describe("Still lifes!", () => {
   let grid;
 
-  it("Block with one iteration", () => {
+  it("Block shape does not change when iterating", () => {
     let iterations = 1;
     const grid = new Grid("bbbb$boob$boob$bbbb!", 4, iterations);
     expect(grid.toString()).to.equal("bbbb$boob$boob$bbbb!");
