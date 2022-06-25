@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { decode } from "../src/RLEDecoder.mjs";
+import { decode } from "../src/RLEcoder.mjs";
 
 describe("Decoding RLE format", () => {
   it("Decoding RLE block pattern", () => {
