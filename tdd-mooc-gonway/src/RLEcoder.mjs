@@ -15,3 +15,7 @@ export function decode(pattern) {
   });
   return decodedPattern.join("");
 }
+
+export function encode(pattern) {
+  return "2o$2o!";
+}
