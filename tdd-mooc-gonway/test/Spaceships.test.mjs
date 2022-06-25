@@ -13,7 +13,7 @@ function distinct(s, n) {
 describe("Spaceship lifes!", () => {
   let grid;
 
-  xit("Glider shape changes when iterating", () => {
+  it("Glider shape changes when iterating", () => {
     let iterations = 1;
     const grid = new Grid("bbbbb$bbbob$bobob$bboob$bbbbb!", 5, iterations);
     expect(grid.toString()).to.equal("bbbbb$bbobb$bbboo$bboob$bbbbb!");
