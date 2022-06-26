@@ -20,19 +20,15 @@ export function encode(pattern) {
   const arr = pattern.split("");
   let count = 0;
   const encodedPattern = arr.reduce((acc, curr) => {
+    let c;
     const prev = acc.pop();
     if (prev === curr) {
       count++;
       return [...acc, prev];
-    } else {
-      if (count > 1) {
-        const c = count;
-        count = 1;
-        return [...acc, c, prev, curr];
-      }
-      count = 1;
-      return [...acc, prev, curr];
     }
+    if (count > 1) c = count;
+    count = 1;
+    return [...acc, c, prev, curr];
   }, []);
   return encodedPattern.join("");
 }
