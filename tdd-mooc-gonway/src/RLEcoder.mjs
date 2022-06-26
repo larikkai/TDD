@@ -19,16 +19,17 @@ export function decode(pattern) {
 export function encode(pattern) {
   const arr = pattern.split("");
   let count = 0;
-  const encodedPattern = arr.reduce((acc, curr) => {
-    let c;
-    const prev = acc.pop();
-    if (prev === curr) {
-      count++;
-      return [...acc, prev];
-    }
-    if (count > 1) c = count;
-    count = 1;
-    return [...acc, c, prev, curr];
-  }, []);
-  return encodedPattern.join("");
+  return arr
+    .reduce((acc, curr) => {
+      let c;
+      const prev = acc.pop();
+      if (prev === curr) {
+        count++;
+        return [...acc, prev];
+      }
+      if (count > 1) c = count;
+      count = 1;
+      return [...acc, c, prev, curr];
+    }, [])
+    .join("");
 }
