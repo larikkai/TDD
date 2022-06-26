@@ -1,19 +1,19 @@
 export function decode(pattern) {
-  const decodedPattern = [];
   const arr = pattern.split("");
   let count = 1;
-  arr.forEach((c) => {
-    if (!isNaN(c)) count = Number(c);
-    else {
-      while (count > 0) {
-        count--;
-        if (count > 1) arr.push(count);
-        decodedPattern.push(c);
+  return arr
+    .reduce((acc, curr) => {
+      if (!isNaN(curr)) {
+        count = Number(curr);
+        return [...acc];
       }
-      count = 1;
-    }
-  });
-  return decodedPattern.join("");
+      while (count > 1) {
+        count--;
+        acc = [...acc, curr];
+      }
+      return [...acc, curr];
+    }, [])
+    .join("");
 }
 
 export function encode(pattern) {
