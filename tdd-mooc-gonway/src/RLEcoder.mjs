@@ -1,7 +1,7 @@
 export function decode(pattern) {
-  const arr = pattern.split("");
   let count = 1;
-  return arr
+  return pattern
+    .split("")
     .reduce((acc, curr) => {
       if (!isNaN(curr)) {
         count = Number(curr);
@@ -17,9 +17,9 @@ export function decode(pattern) {
 }
 
 export function encode(pattern) {
-  const arr = pattern.split("");
   let count = 0;
-  return arr
+  return pattern
+    .split("")
     .reduce((acc, curr) => {
       let c;
       const prev = acc.pop();
