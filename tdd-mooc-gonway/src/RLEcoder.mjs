@@ -17,5 +17,22 @@ export function decode(pattern) {
 }
 
 export function encode(pattern) {
-  return "2o$2o!";
+  const arr = pattern.split("");
+  let count = 0;
+  const encodedPattern = arr.reduce((acc, curr) => {
+    const prev = acc.pop();
+    if (prev === curr) {
+      count++;
+      return [...acc, prev];
+    } else {
+      if (count > 1) {
+        const c = count;
+        count = 1;
+        return [...acc, c, prev, curr];
+      }
+      count = 1;
+      return [...acc, prev, curr];
+    }
+  }, []);
+  return encodedPattern.join("");
 }

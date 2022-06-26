@@ -7,13 +7,13 @@ describe("Encodind to RLE format", () => {
     expect(encoded).to.equal("2o$2o!");
   });
 
-  xit("Decoding RLE blinker pattern", () => {
-    const decoded = decode("3o!");
-    expect(decoded).to.equal("ooo!");
+  it("Decoding RLE blinker pattern", () => {
+    const encoded = encode("ooo!");
+    expect(encoded).to.equal("3o!");
   });
 
-  xit("Decoding RLE glider pattern", () => {
-    const decoded = decode("bob$2bo$3o!");
-    expect(decoded).to.equal("bob$bbo$ooo!");
+  it("Decoding RLE glider pattern", () => {
+    const encoded = encode("bob$bbo$ooo!");
+    expect(encoded).to.equal("bob$2bo$3o!");
   });
 });
